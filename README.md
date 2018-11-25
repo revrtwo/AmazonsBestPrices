@@ -1,4 +1,4 @@
 # Amazon's Best Prices
-Able to track 5 items on Amazon.
+Keeps track of Amazon prices.
 
 Dependencies: .NET Framework 4.6.1
