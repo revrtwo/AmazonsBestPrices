@@ -6,14 +6,15 @@ namespace Amazon_s_Best_Prices
 {
     public partial class main : Form
     {
+        String itemPrice;
         public main()
         {
             InitializeComponent();
         }
 
-        private void Main_Load(object sender, EventArgs e)
+        private void main_Load(object sender, EventArgs e)
         {
-            timer2.Start();
+            
         }
 
         public void button1_Click(object sender, EventArgs e)
@@ -23,6 +24,8 @@ namespace Amazon_s_Best_Prices
             pictureBox1.Visible = true;
             try
             {
+                Properties.Settings.Default.tempITEM = "";
+                Properties.Settings.Default.tempPRICE = "";
                 progressBar1.Value = 0;
                 webBrowser1.Navigate(textBox1.Text);
                 setURL(textBox1.Text);
@@ -46,33 +49,57 @@ namespace Amazon_s_Best_Prices
             try
             {
                 String itemName = webBrowser1.Document.GetElementById("productTitle").OuterText;
-                String visibleName = itemName.Substring(0, 82);
-                label2.Text = "Item Price: " + visibleName;
-                Properties.Settings.Default.tempITEM = itemName;
-
-
+                if(itemName.Length>= 80)
+                {
+                    String visibleName = itemName.Substring(0, 80);
+                    label2.Text = "Item Price: " + visibleName;
+                }
+                else
+                {
+                    label2.Text = "Item Price: " + itemName;
+                }
+                Properties.Settings.Default.tempITEM = itemName;  
             }
             catch
             {
-                label2.Text = "Item name: Item not found";
                 MessageBox.Show("Sorry, the name of the item was not found.", "Item Not Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                label2.Text = "Item name: Item not found";
             }
         }
 
         private void checkPrice()
         {
-            try
-            {
-                String itemPrice = webBrowser1.Document.GetElementById("priceblock_ourprice").OuterText;
-                label3.Text = "Item Price: " + itemPrice;
+                try
+                {
+                    itemPrice = webBrowser1.Document.GetElementById("priceblock_ourprice").OuterText;
+                    Properties.Settings.Default.tempPRICE = itemPrice;
+                }
+                catch
+                {
+                    try
+                    {
+                        if (itemPrice == null)
+                        {
+                        itemPrice = webBrowser1.Document.GetElementById("priceblock_dealprice").OuterText;
+                        Properties.Settings.Default.tempPRICE = itemPrice;
+                        }
+                    }
+                     catch
+                    {
+                        Properties.Settings.Default.tempPRICE = "";
+                    }
+                }
+                itemPrice = Properties.Settings.Default.tempPRICE;
+                if (Properties.Settings.Default.tempPRICE == "")
+                {
+                MessageBox.Show("Sorry, the price of that item was not found.", "Price Not Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                label3.Text = "Item price: Price not found"; 
+                }
+                else
+                    label3.Text = "Item Price: " + itemPrice;
                 button2.Enabled = true;
                 Properties.Settings.Default.tempPRICE = itemPrice;
-            }
-            catch
-            {
-                label3.Text = "Item price: Price not found";
-                MessageBox.Show("Sorry, the price of that item was not found.","Price Not Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+ 
         }
 
         private void timer2_Tick(object sender, EventArgs e)
@@ -111,14 +138,9 @@ namespace Amazon_s_Best_Prices
             Properties.Settings.Default.tempURL = url;
         }
 
-        private void main_Load_1(object sender, EventArgs e)
-        {
-
-        }
-
         private void button3_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(Properties.Settings.Default.tempITEM);
+            MessageBox.Show(webBrowser1.Document.GetElementById("productTitle").OuterText);
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -126,5 +148,6 @@ namespace Amazon_s_Best_Prices
             itemView viewer = new itemView();
             viewer.Show();
         }
+
     }
 }

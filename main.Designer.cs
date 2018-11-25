@@ -37,12 +37,12 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button4 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -102,11 +102,10 @@
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(16, 23);
             this.progressBar1.TabIndex = 6;
-            this.progressBar1.Visible = false;
             // 
             // timer2
             // 
-            this.timer2.Interval = 5;
+            this.timer2.Interval = 10;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
             // panel1
@@ -121,6 +120,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(496, 58);
             this.panel1.TabIndex = 7;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Amazon_s_Best_Prices.Properties.Resources.spinner_icon_0;
+            this.pictureBox1.Location = new System.Drawing.Point(294, 31);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(26, 23);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 9;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Visible = false;
             // 
             // button4
             // 
@@ -158,19 +168,7 @@
             this.button3.TabIndex = 8;
             this.button3.Text = "DEV TEST";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Visible = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::Amazon_s_Best_Prices.Properties.Resources.spinner_icon_0;
-            this.pictureBox1.Location = new System.Drawing.Point(294, 31);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(26, 23);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 9;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Visible = false;
             // 
             // main
             // 
@@ -189,7 +187,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Amazon\'s Best Prices";
-            this.Load += new System.EventHandler(this.main_Load_1);
+            this.Load += new System.EventHandler(this.main_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

@@ -66,6 +66,9 @@ namespace Amazon_s_Best_Prices
             else
             {
                 MessageBox.Show("Sorry, all slots are currently full.", "No Avaliable Slots");
+                this.Close();
+                main main = new main();
+                main.Show();
             }
             return identifier;
         }

@@ -3,3 +3,5 @@
 *.pdb
 *.exe
 *.cache
+bin/Debug/Amazon's Best Prices.exe
+obj/Debug/Amazon's Best Prices.exe
