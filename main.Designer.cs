@@ -102,6 +102,7 @@
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(16, 23);
             this.progressBar1.TabIndex = 6;
+            this.progressBar1.Visible = false;
             // 
             // timer2
             // 
@@ -168,6 +169,7 @@
             this.button3.TabIndex = 8;
             this.button3.Text = "DEV TEST";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Visible = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // main
