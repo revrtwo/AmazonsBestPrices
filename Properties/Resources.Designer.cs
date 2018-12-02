@@ -63,9 +63,39 @@ namespace Amazon_s_Best_Prices.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap spinner_icon_0 {
+        internal static System.Drawing.Bitmap itemViewLayout {
             get {
-                object obj = ResourceManager.GetObject("spinner_icon_0", resourceCulture);
+                object obj = ResourceManager.GetObject("itemViewLayout", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mainLayout {
+            get {
+                object obj = ResourceManager.GetObject("mainLayout", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap optionLayout {
+            get {
+                object obj = ResourceManager.GetObject("optionLayout", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap spinLoader {
+            get {
+                object obj = ResourceManager.GetObject("spinLoader", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -1,4 +1,4 @@
-Contributions to the master branch are currently not allowed. 
+Contributions to the master branch are currently not welcomed. 
 
 This is a personal, open source project. 
 

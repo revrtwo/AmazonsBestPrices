@@ -33,6 +33,8 @@ namespace Amazon_s_Best_Prices
         private void option_Load(object sender, EventArgs e)
         {
             this.Enabled = true;
+            this.ControlBox = false;
+            button1.Enabled = true;
         }
 
         private int locateIndex()
@@ -65,6 +67,7 @@ namespace Amazon_s_Best_Prices
             }
             else
             {
+                //Creating another form when no spots left (error)
                 MessageBox.Show("Sorry, all slots are currently full.", "No Avaliable Slots");
                 this.Close();
                 main main = new main();

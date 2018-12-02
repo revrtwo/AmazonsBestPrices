@@ -99,7 +99,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\spinner-icon-0.gif" />
+    <None Include="Resources\mainLayout.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\optionLayout.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\itemViewLayout.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\spinLoader.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

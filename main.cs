@@ -14,7 +14,7 @@ namespace Amazon_s_Best_Prices
 
         private void main_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         public void button1_Click(object sender, EventArgs e)
@@ -49,10 +49,10 @@ namespace Amazon_s_Best_Prices
             try
             {
                 String itemName = webBrowser1.Document.GetElementById("productTitle").OuterText;
-                if(itemName.Length>= 80)
+                if(itemName.Length>= 72)
                 {
-                    String visibleName = itemName.Substring(0, 80);
-                    label2.Text = "Item Price: " + visibleName;
+                    String visibleName = itemName.Substring(0, 72);
+                    label2.Text = "Item Price: " + visibleName + "...";
                 }
                 else
                 {
@@ -90,16 +90,18 @@ namespace Amazon_s_Best_Prices
                     }
                 }
                 itemPrice = Properties.Settings.Default.tempPRICE;
-                if (Properties.Settings.Default.tempPRICE == "")
-                {
+            if (Properties.Settings.Default.tempPRICE == "")
+            {
                 MessageBox.Show("Sorry, the price of that item was not found.", "Price Not Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                label3.Text = "Item price: Price not found"; 
-                }
-                else
-                    label3.Text = "Item Price: " + itemPrice;
+                label3.Text = "Item price: Price not found";
+                button2.Enabled = false;
+            }
+            else
+            {
+                label3.Text = "Item Price: " + itemPrice;
                 button2.Enabled = true;
                 Properties.Settings.Default.tempPRICE = itemPrice;
- 
+            }
         }
 
         private void timer2_Tick(object sender, EventArgs e)
@@ -140,14 +142,20 @@ namespace Amazon_s_Best_Prices
 
         private void button3_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(webBrowser1.Document.GetElementById("productTitle").OuterText);
+            //Dev button
+
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            itemView viewer = new itemView();
-            viewer.Show();
+            itemView itemView = new itemView();
+            itemView.Show();
         }
 
+        private void main_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Properties.Settings.Default.Save();
+            Application.Exit();
+        }
     }
 }
