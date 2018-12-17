@@ -9,6 +9,7 @@ namespace Amazon_s_Best_Prices
         public String urlText = "Click here for item webpage";
         public String nullString = "No item is being tracked here";
         public Boolean completed;
+        public static String currentItem = "";
 
         public itemView()
         {
@@ -17,7 +18,12 @@ namespace Amazon_s_Best_Prices
 
         private void itemView_Load(object sender, EventArgs e)
         {
-            refreshNames();
+            
+        }
+
+        public String getCurrentRefresh()
+        {
+            return currentItem;
         }
 
         public void refreshNames()
@@ -34,8 +40,11 @@ namespace Amazon_s_Best_Prices
             else
             {
                 label1.Text = Properties.Settings.Default.item1;
-                label2.Text = Properties.Settings.Default.price1;        
-                label3.Text = Properties.Settings.Default.item1URL.Substring(0, 75) + "...";
+                label2.Text = Properties.Settings.Default.price1;
+                if (Properties.Settings.Default.item1URL.Length >= 75)
+                    label3.Text = Properties.Settings.Default.item1URL.Substring(0, 75) + "...";
+                else
+                    label3.Text = Properties.Settings.Default.item1URL;
                 tabPage1.Text = Properties.Settings.Default.item1;
                 updatePrices(1);
             }
@@ -51,7 +60,10 @@ namespace Amazon_s_Best_Prices
             {
                 label4.Text = Properties.Settings.Default.item2;
                 label5.Text = Properties.Settings.Default.price2;
-                label6.Text = Properties.Settings.Default.item2URL.Substring(0, 75) + "...";
+                if (Properties.Settings.Default.item2URL.Length >= 75)
+                    label6.Text = Properties.Settings.Default.item2URL.Substring(0, 75) + "...";
+                else
+                    label6.Text = Properties.Settings.Default.item2URL;
                 tabPage2.Text = Properties.Settings.Default.item2;
                 updatePrices(2);
             }
@@ -67,7 +79,10 @@ namespace Amazon_s_Best_Prices
             {
                 label7.Text = Properties.Settings.Default.item3;
                 label8.Text = Properties.Settings.Default.price3;
-                label9.Text = Properties.Settings.Default.item3URL.Substring(0, 75) + "...";
+                if (Properties.Settings.Default.item3URL.Length >= 75)
+                    label9.Text = Properties.Settings.Default.item3URL.Substring(0, 75) + "...";
+                else
+                    label9.Text = Properties.Settings.Default.item3URL;
                 tabPage3.Text = Properties.Settings.Default.item3;
                 updatePrices(3);
             }
@@ -83,7 +98,10 @@ namespace Amazon_s_Best_Prices
             {
                 label10.Text = Properties.Settings.Default.item4;
                 label11.Text = Properties.Settings.Default.price4;
-                label12.Text = Properties.Settings.Default.item4URL.Substring(0, 75) + "...";
+                if (Properties.Settings.Default.item4URL.Length >= 75)
+                    label12.Text = Properties.Settings.Default.item4URL.Substring(0, 75) + "...";
+                else
+                    label12.Text = Properties.Settings.Default.item4URL;
                 tabPage4.Text = Properties.Settings.Default.item4;
                 updatePrices(4);
             }
@@ -99,10 +117,14 @@ namespace Amazon_s_Best_Prices
             {
                 label13.Text = Properties.Settings.Default.item5;
                 label14.Text = Properties.Settings.Default.price5;
-                label15.Text = Properties.Settings.Default.item5URL.Substring(0, 75) + "...";
+                if (Properties.Settings.Default.item5URL.Length >= 75)
+                    label15.Text = Properties.Settings.Default.item5URL.Substring(0, 75) + "...";
+                else
+                    label15.Text = Properties.Settings.Default.item5URL;
                 tabPage5.Text = Properties.Settings.Default.item5;
                 updatePrices(5);
             }
+            currentItem = "finished";
         }
         //Method in development
         //If path == true, possible err
@@ -192,7 +214,7 @@ namespace Amazon_s_Best_Prices
                     break;
             }
         }
-        //Beta method
+
         private void checkPrice(int identifier)
         {
             String itemPrice = "";
@@ -202,7 +224,7 @@ namespace Amazon_s_Best_Prices
             {
                 case 1:
                     webBrowser1.Navigate(Properties.Settings.Default.item1URL);
-                    MessageBox.Show("Updating " + Properties.Settings.Default.item1);
+                    currentItem = "Updating " + Properties.Settings.Default.item1;
                     while (completed == true)
                     {
                         try
@@ -258,7 +280,7 @@ namespace Amazon_s_Best_Prices
 
                 case 2:
                     webBrowser1.Navigate(Properties.Settings.Default.item2URL);
-                    MessageBox.Show("Updating " + Properties.Settings.Default.item2);
+                    currentItem = "Updating " + Properties.Settings.Default.item2;
                     while (completed == true)
                     {
                         try
@@ -314,7 +336,7 @@ namespace Amazon_s_Best_Prices
 
                 case 3:
                     webBrowser1.Navigate(Properties.Settings.Default.item3URL);
-                    MessageBox.Show("Updating " + Properties.Settings.Default.item3);
+                    currentItem = "Updating " + Properties.Settings.Default.item3;
                     while (completed == true)
                     {
                         try
@@ -370,7 +392,7 @@ namespace Amazon_s_Best_Prices
 
                 case 4:
                     webBrowser1.Navigate(Properties.Settings.Default.item4URL);
-                    MessageBox.Show("Updating " + Properties.Settings.Default.item4);
+                    currentItem = "Updating " + Properties.Settings.Default.item4;
                     while (completed == true)
                     {
                         try
@@ -426,7 +448,7 @@ namespace Amazon_s_Best_Prices
 
                 case 5:
                     webBrowser1.Navigate(Properties.Settings.Default.item5URL);
-                    MessageBox.Show("Updating " + Properties.Settings.Default.item5);
+                    currentItem = "Updating " + Properties.Settings.Default.item5;
                     while (completed == true)
                     {
                         try
@@ -616,5 +638,6 @@ namespace Amazon_s_Best_Prices
                 webTimer.Stop();
             }
         }
+  
     }
 }

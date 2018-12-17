@@ -143,13 +143,13 @@ namespace Amazon_s_Best_Prices
         private void button3_Click(object sender, EventArgs e)
         {
             //Dev button
-
+            
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            itemView itemView = new itemView();
-            itemView.Show();
+            viewLoader loader = new viewLoader();
+            loader.browserTimer.Start();
         }
 
         private void main_FormClosed(object sender, FormClosedEventArgs e)

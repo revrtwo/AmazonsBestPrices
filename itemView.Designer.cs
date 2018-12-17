@@ -445,6 +445,7 @@
             this.ClientSize = new System.Drawing.Size(520, 235);
             this.Controls.Add(this.webBrowser1);
             this.Controls.Add(this.tabControl1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "itemView";
