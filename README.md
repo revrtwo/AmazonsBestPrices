@@ -3,7 +3,7 @@
 <p><strong>Prerequisite</strong></p>
 <p><a href="https://www.microsoft.com/en-us/download/details.aspx?id=49981">Microsoft .NET Framework 4.6.1</a></p>
 <p><strong>Installation</strong></p>
-<p><em>To avoid administrative privilege prerequisite being implemented, these steps must be followed:</em></p>
+<p><em>To avoid administrative privilege prerequisite from being implemented, these steps must be followed:</em></p>
 <p>1. Create a folder on your desktop (preferably in the user documents directory) with any name.</p>
 <p>2. Download the latest available version of the project and place the executable inside the newly created folder.</p>
 <p>3. Right click on the executable and select "Create shortcut" from the options window.</p>
