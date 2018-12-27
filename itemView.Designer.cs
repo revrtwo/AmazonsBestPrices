@@ -32,43 +32,56 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(itemView));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.item1Status = new System.Windows.Forms.PictureBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.item2Status = new System.Windows.Forms.PictureBox();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.item3Status = new System.Windows.Forms.PictureBox();
             this.richTextBox3 = new System.Windows.Forms.RichTextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.item4Status = new System.Windows.Forms.PictureBox();
             this.richTextBox4 = new System.Windows.Forms.RichTextBox();
             this.button4 = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.item5Status = new System.Windows.Forms.PictureBox();
             this.richTextBox5 = new System.Windows.Forms.RichTextBox();
             this.button5 = new System.Windows.Forms.Button();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
-            this.webTimer = new System.Windows.Forms.Timer(this.components);
+            this.completedChecker1 = new System.Windows.Forms.Timer(this.components);
+            this.completedChecker2 = new System.Windows.Forms.Timer(this.components);
+            this.completedChecker3 = new System.Windows.Forms.Timer(this.components);
+            this.completedChecker4 = new System.Windows.Forms.Timer(this.components);
+            this.completedChecker5 = new System.Windows.Forms.Timer(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.item1Status)).BeginInit();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.item2Status)).BeginInit();
             this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.item3Status)).BeginInit();
             this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.item4Status)).BeginInit();
             this.tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.item5Status)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -88,6 +101,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.White;
+            this.tabPage1.Controls.Add(this.item1Status);
             this.tabPage1.Controls.Add(this.richTextBox1);
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.label2);
@@ -99,6 +113,15 @@
             this.tabPage1.Size = new System.Drawing.Size(488, 185);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
+            // 
+            // item1Status
+            // 
+            this.item1Status.Location = new System.Drawing.Point(6, 154);
+            this.item1Status.Name = "item1Status";
+            this.item1Status.Size = new System.Drawing.Size(18, 23);
+            this.item1Status.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.item1Status.TabIndex = 12;
+            this.item1Status.TabStop = false;
             // 
             // richTextBox1
             // 
@@ -154,6 +177,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.item2Status);
             this.tabPage2.Controls.Add(this.richTextBox2);
             this.tabPage2.Controls.Add(this.button2);
             this.tabPage2.Controls.Add(this.label6);
@@ -166,6 +190,15 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // item2Status
+            // 
+            this.item2Status.Location = new System.Drawing.Point(6, 154);
+            this.item2Status.Name = "item2Status";
+            this.item2Status.Size = new System.Drawing.Size(18, 23);
+            this.item2Status.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.item2Status.TabIndex = 13;
+            this.item2Status.TabStop = false;
             // 
             // richTextBox2
             // 
@@ -221,6 +254,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.item3Status);
             this.tabPage3.Controls.Add(this.richTextBox3);
             this.tabPage3.Controls.Add(this.button3);
             this.tabPage3.Controls.Add(this.label9);
@@ -233,6 +267,15 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // item3Status
+            // 
+            this.item3Status.Location = new System.Drawing.Point(6, 154);
+            this.item3Status.Name = "item3Status";
+            this.item3Status.Size = new System.Drawing.Size(18, 23);
+            this.item3Status.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.item3Status.TabIndex = 13;
+            this.item3Status.TabStop = false;
             // 
             // richTextBox3
             // 
@@ -288,6 +331,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.item4Status);
             this.tabPage4.Controls.Add(this.richTextBox4);
             this.tabPage4.Controls.Add(this.button4);
             this.tabPage4.Controls.Add(this.label12);
@@ -300,6 +344,15 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "tabPage4";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // item4Status
+            // 
+            this.item4Status.Location = new System.Drawing.Point(6, 154);
+            this.item4Status.Name = "item4Status";
+            this.item4Status.Size = new System.Drawing.Size(18, 23);
+            this.item4Status.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.item4Status.TabIndex = 13;
+            this.item4Status.TabStop = false;
             // 
             // richTextBox4
             // 
@@ -355,6 +408,7 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.item5Status);
             this.tabPage5.Controls.Add(this.richTextBox5);
             this.tabPage5.Controls.Add(this.button5);
             this.tabPage5.Controls.Add(this.label15);
@@ -367,6 +421,15 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "tabPage5";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // item5Status
+            // 
+            this.item5Status.Location = new System.Drawing.Point(6, 154);
+            this.item5Status.Name = "item5Status";
+            this.item5Status.Size = new System.Drawing.Size(18, 23);
+            this.item5Status.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.item5Status.TabIndex = 13;
+            this.item5Status.TabStop = false;
             // 
             // richTextBox5
             // 
@@ -421,20 +484,25 @@
             this.label13.TabIndex = 3;
             this.label13.Text = "label13";
             // 
-            // webBrowser1
+            // completedChecker1
             // 
-            this.webBrowser1.Location = new System.Drawing.Point(333, 11);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.ScriptErrorsSuppressed = true;
-            this.webBrowser1.Size = new System.Drawing.Size(176, 20);
-            this.webBrowser1.TabIndex = 12;
-            this.webBrowser1.Visible = false;
+            this.completedChecker1.Tick += new System.EventHandler(this.completedChecker1_Tick);
             // 
-            // webTimer
+            // completedChecker2
             // 
-            this.webTimer.Interval = 1;
-            this.webTimer.Tick += new System.EventHandler(this.webTimer_Tick);
+            this.completedChecker2.Tick += new System.EventHandler(this.completedChecker2_Tick);
+            // 
+            // completedChecker3
+            // 
+            this.completedChecker3.Tick += new System.EventHandler(this.completedChecker3_Tick);
+            // 
+            // completedChecker4
+            // 
+            this.completedChecker4.Tick += new System.EventHandler(this.completedChecker4_Tick);
+            // 
+            // completedChecker5
+            // 
+            this.completedChecker5.Tick += new System.EventHandler(this.completedChecker5_Tick);
             // 
             // itemView
             // 
@@ -443,7 +511,6 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(520, 235);
-            this.Controls.Add(this.webBrowser1);
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -452,18 +519,24 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Tracked Items";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.itemView_FormClosing);
             this.Load += new System.EventHandler(this.itemView_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.item1Status)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.item2Status)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.item3Status)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.item4Status)).EndInit();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.item5Status)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -500,7 +573,15 @@
         private System.Windows.Forms.RichTextBox richTextBox3;
         private System.Windows.Forms.RichTextBox richTextBox4;
         private System.Windows.Forms.RichTextBox richTextBox5;
-        private System.Windows.Forms.WebBrowser webBrowser1;
-        private System.Windows.Forms.Timer webTimer;
+        private System.Windows.Forms.Timer completedChecker1;
+        private System.Windows.Forms.PictureBox item1Status;
+        private System.Windows.Forms.PictureBox item2Status;
+        private System.Windows.Forms.PictureBox item3Status;
+        private System.Windows.Forms.PictureBox item4Status;
+        private System.Windows.Forms.PictureBox item5Status;
+        private System.Windows.Forms.Timer completedChecker2;
+        private System.Windows.Forms.Timer completedChecker3;
+        private System.Windows.Forms.Timer completedChecker4;
+        private System.Windows.Forms.Timer completedChecker5;
     }
 }

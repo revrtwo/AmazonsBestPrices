@@ -19,9 +19,17 @@ namespace Amazon_s_Best_Prices
             if (itemName != "")
             {
                 //Valid name
-                add(avaliableIndex, itemName, itemCost, itemURL);
-                this.Close();
-                main.Show();
+                if (!avaliableIndex.Equals(-1))
+                {
+                    add(avaliableIndex, itemName, itemCost, itemURL);
+                    this.Close();
+                    main.Show();
+                }
+                else
+                {
+                    this.Close();
+                    main.Show();
+                }
             }
             else
             {
@@ -68,10 +76,8 @@ namespace Amazon_s_Best_Prices
             else
             {
                 //Creating another form when no spots left (error)
-                MessageBox.Show("Sorry, all slots are currently full.", "No Avaliable Slots");
-                this.Close();
-                main main = new main();
-                main.Show();
+                MessageBox.Show("All trackers are occupied (limit 5)", "No available trackers", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                identifier = -1;
             }
             return identifier;
         }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace Amazon_s_Best_Prices
@@ -21,6 +20,7 @@ namespace Amazon_s_Best_Prices
         {
             button1.Text = "Loading..";
             button2.Enabled = false;
+            button4.Enabled = false;
             pictureBox1.Visible = true;
             try
             {
@@ -52,11 +52,11 @@ namespace Amazon_s_Best_Prices
                 if(itemName.Length>= 72)
                 {
                     String visibleName = itemName.Substring(0, 72);
-                    label2.Text = "Item Price: " + visibleName + "...";
+                    label2.Text = "Item Name: " + visibleName + "...";
                 }
                 else
                 {
-                    label2.Text = "Item Price: " + itemName;
+                    label2.Text = "Item Name: " + itemName;
                 }
                 Properties.Settings.Default.tempITEM = itemName;  
             }
@@ -100,6 +100,7 @@ namespace Amazon_s_Best_Prices
             {
                 label3.Text = "Item Price: " + itemPrice;
                 button2.Enabled = true;
+                button4.Enabled = true;
                 Properties.Settings.Default.tempPRICE = itemPrice;
             }
         }
@@ -142,14 +143,14 @@ namespace Amazon_s_Best_Prices
 
         private void button3_Click(object sender, EventArgs e)
         {
-            //Dev button
-            
+
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            viewLoader loader = new viewLoader();
-            loader.browserTimer.Start();
+            this.Hide();
+            itemView showCase = new itemView();
+            showCase.Show();
         }
 
         private void main_FormClosed(object sender, FormClosedEventArgs e)
