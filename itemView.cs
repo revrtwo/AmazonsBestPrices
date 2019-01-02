@@ -160,8 +160,7 @@ namespace Amazon_s_Best_Prices
                 updatePrices(5);
             }
         }
-        //Method in development
-        //If path == true, possible err
+
         private void updatePrices(int identifier)
         {
             switch (identifier)
@@ -327,11 +326,13 @@ namespace Amazon_s_Best_Prices
                             sw.WriteLine(updatePrice); sw.Close();
                             label2.Text = updatePrice;
                             Properties.Settings.Default.Save();
+                            web1.Stop();
                             break;
                         }
                         else
                         {
                             item1Status.Image = Properties.Resources.samePrice;
+                            web1.Stop();
                             break;
                         }
                     }
@@ -352,11 +353,13 @@ namespace Amazon_s_Best_Prices
                                 sw.WriteLine(updatePrice); sw.Close();
                                 label2.Text = updatePrice;
                                 Properties.Settings.Default.Save();
+                                web1.Stop();
                                 break;
                             }
                             else
                             {
                                 item1Status.Image = Properties.Resources.samePrice;
+                                web1.Stop();
                                 break;
                             }
                         }
@@ -364,6 +367,7 @@ namespace Amazon_s_Best_Prices
                         {
                             //Item not found / Not Avaliable
                             item1Status.Image = Properties.Resources.notFound;
+                            web1.Stop();
                             break;
                         }
                     }
@@ -384,11 +388,13 @@ namespace Amazon_s_Best_Prices
                             sw.WriteLine(updatePrice); sw.Close();
                             label5.Text = updatePrice;
                             Properties.Settings.Default.Save();
+                            web2.Stop();
                             break;
                         }
                         else
                         {
                             item2Status.Image = Properties.Resources.samePrice;
+                            web2.Stop();
                             break;
                         }
                     }
@@ -409,11 +415,13 @@ namespace Amazon_s_Best_Prices
                                 sw.WriteLine(updatePrice); sw.Close();
                                 label5.Text = updatePrice;
                                 Properties.Settings.Default.Save();
+                                web2.Stop();
                                 break;
                             }
                             else
                             {
                                 item2Status.Image = Properties.Resources.samePrice;
+                                web2.Stop();
                                 break;
                             }
                         }
@@ -421,6 +429,7 @@ namespace Amazon_s_Best_Prices
                         {
                             //Item not found / Not Avaliable
                             item2Status.Image = Properties.Resources.notFound;
+                            web2.Stop();
                             break;
                         }
                     }
@@ -441,11 +450,13 @@ namespace Amazon_s_Best_Prices
                             sw.WriteLine(updatePrice); sw.Close();
                             label8.Text = updatePrice;
                             Properties.Settings.Default.Save();
+                            web3.Stop();
                             break;
                         }
                         else
                         {
                             item3Status.Image = Properties.Resources.samePrice;
+                            web3.Stop();
                             break;
                         }
                     }
@@ -466,11 +477,13 @@ namespace Amazon_s_Best_Prices
                                 sw.WriteLine(updatePrice); sw.Close();
                                 label8.Text = updatePrice;
                                 Properties.Settings.Default.Save();
+                                web3.Stop();
                                 break;
                             }
                             else
                             {
                                 item3Status.Image = Properties.Resources.samePrice;
+                                web3.Stop();
                                 break;
                             }
                         }
@@ -478,6 +491,7 @@ namespace Amazon_s_Best_Prices
                         {
                             //Item not found / Not Avaliable
                             item3Status.Image = Properties.Resources.notFound;
+                            web3.Stop();
                             break;
                         }
                     }
@@ -498,11 +512,13 @@ namespace Amazon_s_Best_Prices
                             sw.WriteLine(updatePrice); sw.Close();
                             label11.Text = updatePrice;
                             Properties.Settings.Default.Save();
+                            web4.Stop();
                             break;
                         }
                         else
                         {
                             item4Status.Image = Properties.Resources.samePrice;
+                            web4.Stop();
                             break;
                         }
                     }
@@ -523,11 +539,13 @@ namespace Amazon_s_Best_Prices
                                 sw.WriteLine(updatePrice); sw.Close();
                                 label11.Text = updatePrice;
                                 Properties.Settings.Default.Save();
+                                web4.Stop();
                                 break;
                             }
                             else
                             {
                                 item4Status.Image = Properties.Resources.samePrice;
+                                web4.Stop();
                                 break;
                             }
                         }
@@ -535,6 +553,7 @@ namespace Amazon_s_Best_Prices
                         {
                             //Item not found / Not Avaliable
                             item4Status.Image = Properties.Resources.notFound;
+                            web4.Stop();
                             break;
                         }
                     }
@@ -555,11 +574,13 @@ namespace Amazon_s_Best_Prices
                             sw.WriteLine(updatePrice); sw.Close();
                             label14.Text = updatePrice;
                             Properties.Settings.Default.Save();
+                            web5.Stop();
                             break;
                         }
                         else
                         {
                             item5Status.Image = Properties.Resources.samePrice;
+                            web5.Stop();
                             break;
                         }
                     }
@@ -580,11 +601,13 @@ namespace Amazon_s_Best_Prices
                                 sw.WriteLine(updatePrice); sw.Close();
                                 label14.Text = updatePrice;
                                 Properties.Settings.Default.Save();
+                                web5.Stop();
                                 break;
                             }
                             else
                             {
                                 item5Status.Image = Properties.Resources.samePrice;
+                                web5.Stop();
                                 break;
                             }
                         }
@@ -592,6 +615,7 @@ namespace Amazon_s_Best_Prices
                         {
                             //Item not found / Not Avaliable
                             item5Status.Image = Properties.Resources.notFound;
+                            web5.Stop();
                             break;
                         }
                     }
@@ -606,51 +630,115 @@ namespace Amazon_s_Best_Prices
             Boolean priceIncrease = false;
             double initialPrice;
             double newPriceS;
+            double change;
             switch (identifier)
             {
                 case 1:
                     initialPrice = Double.Parse(Properties.Settings.Default.price1.Substring(1, Properties.Settings.Default.price1.Length-1));
                     newPriceS = Double.Parse(newPrice.Substring(1,newPrice.Length-1));
-                    if(newPriceS > initialPrice)
+                    if (newPriceS > initialPrice)
+                    {
+                        change = newPriceS - initialPrice;
+                        sendNotficiation(true, change, Properties.Settings.Default.item1, Properties.Settings.Default.price1, newPrice);
                         priceIncrease = true;
+                    }
                     else
+                    {
+                        change = initialPrice - newPriceS;
+                        sendNotficiation(false, change, Properties.Settings.Default.item1, Properties.Settings.Default.price1, newPrice);
                         priceIncrease = false;
+                    }
                     break;
+
                 case 2:
                     initialPrice = Double.Parse(Properties.Settings.Default.price2.Substring(1, Properties.Settings.Default.price2.Length - 1));
                     newPriceS = Double.Parse(newPrice.Substring(1, newPrice.Length - 1));
                     if (newPriceS > initialPrice)
+                    {
+                        change = newPriceS - initialPrice;
+                        sendNotficiation(true, change, Properties.Settings.Default.item2, Properties.Settings.Default.price2, newPrice);
                         priceIncrease = true;
+                    }
                     else
+                    {
+                        change = initialPrice - newPriceS;
+                        sendNotficiation(false, change, Properties.Settings.Default.item2, Properties.Settings.Default.price2, newPrice);
                         priceIncrease = false;
+                    }
                     break;
+
                 case 3:
                     initialPrice = Double.Parse(Properties.Settings.Default.price3.Substring(1, Properties.Settings.Default.price3.Length - 1));
                     newPriceS = Double.Parse(newPrice.Substring(1, newPrice.Length - 1));
                     if (newPriceS > initialPrice)
+                    {
+                        change = newPriceS - initialPrice;
+                        sendNotficiation(true, change, Properties.Settings.Default.item3, Properties.Settings.Default.price3, newPrice);
                         priceIncrease = true;
+                    }
                     else
+                    {
+                        change = initialPrice - newPriceS;
+                        sendNotficiation(false, change, Properties.Settings.Default.item3, Properties.Settings.Default.price3, newPrice);
                         priceIncrease = false;
+                    }
                     break;
+
                 case 4:
                     initialPrice = Double.Parse(Properties.Settings.Default.price4.Substring(1, Properties.Settings.Default.price4.Length - 1));
                     newPriceS = Double.Parse(newPrice.Substring(1, newPrice.Length - 1));
                     if (newPriceS > initialPrice)
+                    {
+                        change = newPriceS - initialPrice;
+                        sendNotficiation(true, change, Properties.Settings.Default.item4, Properties.Settings.Default.price4, newPrice);
                         priceIncrease = true;
+                    }
                     else
+                    {
+                        change = initialPrice - newPriceS;
+                        sendNotficiation(false, change, Properties.Settings.Default.item4, Properties.Settings.Default.price4, newPrice);
                         priceIncrease = false;
+                    }
                     break;
+
                 case 5:
                     initialPrice = Double.Parse(Properties.Settings.Default.price5.Substring(1, Properties.Settings.Default.price5.Length - 1));
                     newPriceS = Double.Parse(newPrice.Substring(1, newPrice.Length - 1));
                     if (newPriceS > initialPrice)
+                    {
+                        change = newPriceS - initialPrice;
+                        sendNotficiation(true, change, Properties.Settings.Default.item5, Properties.Settings.Default.price5, newPrice);
                         priceIncrease = true;
+                    }
                     else
+                    {
+                        change = initialPrice - newPriceS;
+                        sendNotficiation(false, change, Properties.Settings.Default.item5, Properties.Settings.Default.price5, newPrice);
                         priceIncrease = false;
+                    }
                     break;
 
             }
             return priceIncrease;    
+        }
+
+        //<--- Notification sender --->
+        private void sendNotficiation(Boolean increase, double change, String name, String previousCost, String newPrice)
+        {
+            switch (increase)
+            {
+                case true:
+                    notifyIcon1.BalloonTipTitle = "Price increased";
+                    notifyIcon1.BalloonTipText = name + "'s price is now " + newPrice + "\nPreviously: " + previousCost + "\nDifference: $" + change;
+                    notifyIcon1.ShowBalloonTip(1000);
+                    break;
+
+                case false:
+                    notifyIcon1.BalloonTipTitle = "Price decreased";
+                    notifyIcon1.BalloonTipText = name + "'s price is now " + newPrice + "\nPreviously: " + previousCost + "\nDifference: $" + change;
+                    notifyIcon1.ShowBalloonTip(1000);
+                    break;
+            }
         }
 
         //<--- Delete button actions --->
@@ -756,6 +844,7 @@ namespace Amazon_s_Best_Prices
             }
         }
 
+        //<--- Clears visual items --->
         private void visualDelete(int identifier)
         {
             switch (identifier)
@@ -829,24 +918,7 @@ namespace Amazon_s_Best_Prices
             System.Diagnostics.Process.Start(Properties.Settings.Default.item5URL);
         }
 
-        public Boolean checkCompleted(int identifier)
-        {
-            switch (identifier)
-            {
-                case 1:
-                    return completed1;
-                case 2:
-                    return completed2;
-                case 3:
-                    return completed3;
-                case 4:
-                    return completed4;
-                case 5:
-                    return completed5;
-            }
-            return false;
-        }
-
+        //<--- Page completed handlers --->
         public void pageCompleted1(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             setCompleted(1);
@@ -872,6 +944,7 @@ namespace Amazon_s_Best_Prices
             setCompleted(5);
         }
 
+        //<--- Page completed checkers --->
         private void completedChecker1_Tick(object sender, EventArgs e)
         {
             if (checkCompleted(1).Equals(true))
@@ -917,6 +990,24 @@ namespace Amazon_s_Best_Prices
             }
         }
 
+        public Boolean checkCompleted(int identifier)
+        {
+            switch (identifier)
+            {
+                case 1:
+                    return completed1;
+                case 2:
+                    return completed2;
+                case 3:
+                    return completed3;
+                case 4:
+                    return completed4;
+                case 5:
+                    return completed5;
+            }
+            return false;
+        }
+
         private void itemView_FormClosing(object sender, FormClosingEventArgs e)
         {
             Properties.Settings.Default.Save();
@@ -924,5 +1015,9 @@ namespace Amazon_s_Best_Prices
             main.Show();
         }
 
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.Show();
+        }
     }
 }

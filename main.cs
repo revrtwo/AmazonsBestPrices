@@ -6,49 +6,76 @@ namespace Amazon_s_Best_Prices
     public partial class main : Form
     {
         String itemPrice;
+        public Boolean completed;
+        static WebBrowser web = new WebBrowser();
+
         public main()
         {
             InitializeComponent();
         }
 
+        private void setCompleted()
+        {
+            completed = true;
+        }
+
+        private Boolean checkCompleted()
+        {
+            return completed;
+        }
+
+        private void setURL(String url)
+        {
+            Properties.Settings.Default.tempURL = url;
+        }
+
         private void main_Load(object sender, EventArgs e)
         {
-
+            web.ScriptErrorsSuppressed = true;
         }
 
-        public void button1_Click(object sender, EventArgs e)
-        {
-            button1.Text = "Loading..";
-            button2.Enabled = false;
-            button4.Enabled = false;
-            pictureBox1.Visible = true;
-            try
-            {
-                Properties.Settings.Default.tempITEM = "";
-                Properties.Settings.Default.tempPRICE = "";
-                progressBar1.Value = 0;
-                webBrowser1.Navigate(textBox1.Text);
-                setURL(textBox1.Text);
-                timer2.Start();
-            }
-            catch
-            {
-               MessageBox.Show("An error has occured, please try again.", "URL Error",MessageBoxButtons.OK,MessageBoxIcon.Information);
-            }
-        }
-
-        private void button2_Click(object sender, EventArgs e)
+        private void addBtn_Click(object sender, EventArgs e)
         {
             option option = new option();
             option.Show();
             this.Hide();
         }
 
+        private void viewBtn_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            itemView showCase = new itemView();
+            showCase.Show();
+        }
+
+        public void searchBtn_Click(object sender, EventArgs e)
+        {
+            searchBtn.Text = "Loading..";
+            completed = false;
+            searchBtn.Enabled = false;
+            addBtn.Enabled = false;
+            viewBtn.Enabled = false;
+            pictureBox1.Visible = true;
+            try
+            {
+                Properties.Settings.Default.tempITEM = "";
+                Properties.Settings.Default.tempPRICE = "";
+                web.Navigate(textBox1.Text);
+                setURL(textBox1.Text);
+                web.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(pageCompleted);
+                completedChecker.Start();
+            }
+            catch
+            {
+               MessageBox.Show("An error has occured, please try again.", "URL error",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            }
+        }
+
         private void checkName()
         {
             try
             {
-                String itemName = webBrowser1.Document.GetElementById("productTitle").OuterText;
+                String itemName = web.Document.GetElementById("productTitle").OuterText;
                 if(itemName.Length>= 72)
                 {
                     String visibleName = itemName.Substring(0, 72);
@@ -62,7 +89,7 @@ namespace Amazon_s_Best_Prices
             }
             catch
             {
-                MessageBox.Show("Sorry, the name of the item was not found.", "Item Not Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Sorry, the name of the item was not found.", "Item not found", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 label2.Text = "Item name: Item not found";
             }
         }
@@ -71,7 +98,7 @@ namespace Amazon_s_Best_Prices
         {
                 try
                 {
-                    itemPrice = webBrowser1.Document.GetElementById("priceblock_ourprice").OuterText;
+                    itemPrice = web.Document.GetElementById("priceblock_ourprice").OuterText;
                     Properties.Settings.Default.tempPRICE = itemPrice;
                 }
                 catch
@@ -80,7 +107,7 @@ namespace Amazon_s_Best_Prices
                     {
                         if (itemPrice == null)
                         {
-                        itemPrice = webBrowser1.Document.GetElementById("priceblock_dealprice").OuterText;
+                        itemPrice = web.Document.GetElementById("priceblock_dealprice").OuterText;
                         Properties.Settings.Default.tempPRICE = itemPrice;
                         }
                     }
@@ -92,65 +119,43 @@ namespace Amazon_s_Best_Prices
                 itemPrice = Properties.Settings.Default.tempPRICE;
             if (Properties.Settings.Default.tempPRICE == "")
             {
-                MessageBox.Show("Sorry, the price of that item was not found.", "Price Not Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Sorry, the price of that item was not found.", "Price not found", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 label3.Text = "Item price: Price not found";
-                button2.Enabled = false;
+                addBtn.Enabled = false;
             }
             else
             {
                 label3.Text = "Item Price: " + itemPrice;
-                button2.Enabled = true;
-                button4.Enabled = true;
+                addBtn.Enabled = true;
+                viewBtn.Enabled = true;
                 Properties.Settings.Default.tempPRICE = itemPrice;
             }
         }
 
-        private void timer2_Tick(object sender, EventArgs e)
+        private void completedChecker_Tick(object sender, EventArgs e)
         {
-            button1.Enabled = false;
-            progressBar1.Increment(+1);
-            if (progressBar1.Value == 100)
+            searchBtn.Enabled = false;
+            if (checkCompleted())
             {
-                timer2.Stop();
-                button1.Text = "Search";
+                completedChecker.Stop();
+                searchBtn.Text = "Search";
                 checkName();
                 checkPrice();
-                button1.Enabled = true;
-                button1.Enabled = true;
+                searchBtn.Enabled = true;
+                viewBtn.Enabled = true;
                 pictureBox1.Visible = false;
             }
         }
 
-        public String getName()
-        {
-            return Properties.Settings.Default.tempITEM;
-        }
-
-        public String getPrice()
-        {
-            return Properties.Settings.Default.tempPRICE;
-        }
-
-        public String getURL()
-        {
-            return Properties.Settings.Default.tempURL;
-        }
-
-        public void setURL(String url)
-        {
-            Properties.Settings.Default.tempURL = url;
-        }
-
+        //Dev. test button
         private void button3_Click(object sender, EventArgs e)
         {
-
+            
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void pageCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-            this.Hide();
-            itemView showCase = new itemView();
-            showCase.Show();
+            setCompleted();
         }
 
         private void main_FormClosed(object sender, FormClosedEventArgs e)
@@ -158,5 +163,6 @@ namespace Amazon_s_Best_Prices
             Properties.Settings.Default.Save();
             Application.Exit();
         }
+
     }
 }

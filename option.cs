@@ -4,15 +4,23 @@ namespace Amazon_s_Best_Prices
 {
     public partial class option : Form
     {
+
         public option()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void option_Load(object sender, EventArgs e)
+        {
+            this.Enabled = true;
+            this.ControlBox = false;
+            addButton.Enabled = true;
+        }
+
+        private void addButton_Click(object sender, EventArgs e)
         {
             main main = new main();
-            String itemName = textBox1.Text;
+            String itemName = itemNameBox.Text;
             String itemCost = Properties.Settings.Default.tempPRICE;
             String itemURL = Properties.Settings.Default.tempURL;
             int avaliableIndex = locateIndex();
@@ -34,15 +42,9 @@ namespace Amazon_s_Best_Prices
             else
             {
                 //No name entered
-                MessageBox.Show("A name is required to track this product.","Name Required");
-            }
-        }
+                MessageBox.Show("A name is required to track this product.","Name Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-        private void option_Load(object sender, EventArgs e)
-        {
-            this.Enabled = true;
-            this.ControlBox = false;
-            button1.Enabled = true;
+            }
         }
 
         private int locateIndex()
@@ -75,9 +77,8 @@ namespace Amazon_s_Best_Prices
             }
             else
             {
-                //Creating another form when no spots left (error)
-                MessageBox.Show("All trackers are occupied (limit 5)", "No available trackers", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 identifier = -1;
+                MessageBox.Show("All trackers are occupied (limit 5)", "No available trackers", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             return identifier;
         }
@@ -119,6 +120,7 @@ namespace Amazon_s_Best_Prices
             }
 
         }
+
     }
 
 }

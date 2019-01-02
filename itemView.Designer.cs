@@ -71,6 +71,7 @@
             this.completedChecker3 = new System.Windows.Forms.Timer(this.components);
             this.completedChecker4 = new System.Windows.Forms.Timer(this.components);
             this.completedChecker5 = new System.Windows.Forms.Timer(this.components);
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.item1Status)).BeginInit();
@@ -504,6 +505,13 @@
             // 
             this.completedChecker5.Tick += new System.EventHandler(this.completedChecker5_Tick);
             // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Text = "Amazon\'s Best Prices";
+            this.notifyIcon1.Visible = true;
+            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
+            // 
             // itemView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -583,5 +591,6 @@
         private System.Windows.Forms.Timer completedChecker3;
         private System.Windows.Forms.Timer completedChecker4;
         private System.Windows.Forms.Timer completedChecker5;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
     }
 }
