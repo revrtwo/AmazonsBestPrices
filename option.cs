@@ -42,7 +42,7 @@ namespace Amazon_s_Best_Prices
             else
             {
                 //No name entered
-                MessageBox.Show("A name is required to track this product.","Name Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("A name is required to track this product.","Name required", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
         }

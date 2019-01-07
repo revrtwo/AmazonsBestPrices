@@ -298,5 +298,41 @@ namespace Amazon_s_Best_Prices.Properties {
                 this["tempURL"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool clearURLBox {
+            get {
+                return ((bool)(this["clearURLBox"]));
+            }
+            set {
+                this["clearURLBox"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool allowNotifications {
+            get {
+                return ((bool)(this["allowNotifications"]));
+            }
+            set {
+                this["allowNotifications"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool setAsterisk {
+            get {
+                return ((bool)(this["setAsterisk"]));
+            }
+            set {
+                this["setAsterisk"] = value;
+            }
+        }
     }
 }

@@ -47,6 +47,24 @@ namespace Amazon_s_Best_Prices
             }
         }
 
+        public Boolean checkCompleted(int identifier)
+        {
+            switch (identifier)
+            {
+                case 1:
+                    return completed1;
+                case 2:
+                    return completed2;
+                case 3:
+                    return completed3;
+                case 4:
+                    return completed4;
+                case 5:
+                    return completed5;
+            }
+            return false;
+        }
+
         public void setCompletedFalse()
         {
             completed1 = false;
@@ -56,8 +74,18 @@ namespace Amazon_s_Best_Prices
             completed5 = false;
         }
 
+        public void supressScriptErrors()
+        {
+            web1.ScriptErrorsSuppressed = true;
+            web2.ScriptErrorsSuppressed = true;
+            web3.ScriptErrorsSuppressed = true;
+            web4.ScriptErrorsSuppressed = true;
+            web5.ScriptErrorsSuppressed = true;
+        }
+
         private void itemView_Load(object sender, EventArgs e)
         {
+            supressScriptErrors();
             currentUpdating = -1;
             refreshNames();
         }
@@ -179,7 +207,7 @@ namespace Amazon_s_Best_Prices
                         item1Status.Image = Properties.Resources.spinLoader;
                         setupBrowser(1);
                     }
-                    StreamReader tabOne = new System.IO.StreamReader(@"item1\item1.txt");
+                    StreamReader tabOne = new StreamReader(@"item1\item1.txt");
                     richTextBox1.Text = tabOne.ReadToEnd(); tabOne.Close();
                     break;
 
@@ -197,7 +225,7 @@ namespace Amazon_s_Best_Prices
                         item2Status.Image = Properties.Resources.spinLoader;
                         setupBrowser(2);
                     }
-                    StreamReader tabTwo = new System.IO.StreamReader(@"item2\item2.txt");
+                    StreamReader tabTwo = new StreamReader(@"item2\item2.txt");
                     richTextBox2.Text = tabTwo.ReadToEnd(); tabTwo.Close();
                     break;
 
@@ -215,7 +243,7 @@ namespace Amazon_s_Best_Prices
                         item3Status.Image = Properties.Resources.spinLoader;
                         setupBrowser(3);
                     }
-                    StreamReader tabThree = new System.IO.StreamReader(@"item3\item3.txt");
+                    StreamReader tabThree = new StreamReader(@"item3\item3.txt");
                     richTextBox3.Text = tabThree.ReadToEnd(); tabThree.Close();
                     break;
 
@@ -233,7 +261,7 @@ namespace Amazon_s_Best_Prices
                         item4Status.Image = Properties.Resources.spinLoader;
                         setupBrowser(4);
                     }
-                    StreamReader tabFour = new System.IO.StreamReader(@"item4\item4.txt");
+                    StreamReader tabFour = new StreamReader(@"item4\item4.txt");
                     richTextBox4.Text = tabFour.ReadToEnd(); tabFour.Close();
                     break;
 
@@ -251,7 +279,7 @@ namespace Amazon_s_Best_Prices
                         item5Status.Image = Properties.Resources.spinLoader;
                         setupBrowser(5);
                     }
-                    StreamReader tabFive = new System.IO.StreamReader(@"item5\item5.txt");
+                    StreamReader tabFive = new StreamReader(@"item5\item5.txt");
                     richTextBox5.Text = tabFive.ReadToEnd(); tabFive.Close();
                     break;
             }
@@ -260,11 +288,6 @@ namespace Amazon_s_Best_Prices
         private void setupBrowser(int identifier)
         {
             setCompletedFalse();
-            web1.ScriptErrorsSuppressed = true;
-            web2.ScriptErrorsSuppressed = true;
-            web3.ScriptErrorsSuppressed = true;
-            web4.ScriptErrorsSuppressed = true;
-            web5.ScriptErrorsSuppressed = true;
             switch (identifier)
             {
                 case 1:
@@ -639,13 +662,19 @@ namespace Amazon_s_Best_Prices
                     if (newPriceS > initialPrice)
                     {
                         change = newPriceS - initialPrice;
-                        sendNotficiation(true, change, Properties.Settings.Default.item1, Properties.Settings.Default.price1, newPrice);
+                        if (Properties.Settings.Default.allowNotifications.Equals(true))
+                            sendNotficiation(true, change, Properties.Settings.Default.item1, Properties.Settings.Default.price1, newPrice);
+                        if (Properties.Settings.Default.setAsterisk.Equals(true))
+                            addAsterisk(identifier);
                         priceIncrease = true;
                     }
                     else
                     {
                         change = initialPrice - newPriceS;
-                        sendNotficiation(false, change, Properties.Settings.Default.item1, Properties.Settings.Default.price1, newPrice);
+                        if (Properties.Settings.Default.allowNotifications.Equals(true))
+                            sendNotficiation(true, change, Properties.Settings.Default.item1, Properties.Settings.Default.price1, newPrice);
+                        if (Properties.Settings.Default.setAsterisk.Equals(true))
+                            addAsterisk(identifier);
                         priceIncrease = false;
                     }
                     break;
@@ -656,13 +685,19 @@ namespace Amazon_s_Best_Prices
                     if (newPriceS > initialPrice)
                     {
                         change = newPriceS - initialPrice;
-                        sendNotficiation(true, change, Properties.Settings.Default.item2, Properties.Settings.Default.price2, newPrice);
+                        if (Properties.Settings.Default.allowNotifications.Equals(true))
+                            sendNotficiation(true, change, Properties.Settings.Default.item2, Properties.Settings.Default.price2, newPrice);
+                        if (Properties.Settings.Default.setAsterisk.Equals(true))
+                            addAsterisk(identifier);
                         priceIncrease = true;
                     }
                     else
                     {
                         change = initialPrice - newPriceS;
-                        sendNotficiation(false, change, Properties.Settings.Default.item2, Properties.Settings.Default.price2, newPrice);
+                        if (Properties.Settings.Default.allowNotifications.Equals(true))
+                            sendNotficiation(false, change, Properties.Settings.Default.item2, Properties.Settings.Default.price2, newPrice);
+                        if (Properties.Settings.Default.setAsterisk.Equals(true))
+                            addAsterisk(identifier);
                         priceIncrease = false;
                     }
                     break;
@@ -673,13 +708,19 @@ namespace Amazon_s_Best_Prices
                     if (newPriceS > initialPrice)
                     {
                         change = newPriceS - initialPrice;
-                        sendNotficiation(true, change, Properties.Settings.Default.item3, Properties.Settings.Default.price3, newPrice);
+                        if (Properties.Settings.Default.allowNotifications.Equals(true))
+                            sendNotficiation(true, change, Properties.Settings.Default.item3, Properties.Settings.Default.price3, newPrice);
+                        if (Properties.Settings.Default.setAsterisk.Equals(true))
+                            addAsterisk(identifier);
                         priceIncrease = true;
                     }
                     else
                     {
                         change = initialPrice - newPriceS;
-                        sendNotficiation(false, change, Properties.Settings.Default.item3, Properties.Settings.Default.price3, newPrice);
+                        if (Properties.Settings.Default.allowNotifications.Equals(true))
+                            sendNotficiation(false, change, Properties.Settings.Default.item3, Properties.Settings.Default.price3, newPrice);
+                        if (Properties.Settings.Default.setAsterisk.Equals(true))
+                            addAsterisk(identifier);
                         priceIncrease = false;
                     }
                     break;
@@ -690,13 +731,19 @@ namespace Amazon_s_Best_Prices
                     if (newPriceS > initialPrice)
                     {
                         change = newPriceS - initialPrice;
-                        sendNotficiation(true, change, Properties.Settings.Default.item4, Properties.Settings.Default.price4, newPrice);
+                        if (Properties.Settings.Default.allowNotifications.Equals(true))
+                            sendNotficiation(true, change, Properties.Settings.Default.item4, Properties.Settings.Default.price4, newPrice);
+                        if (Properties.Settings.Default.setAsterisk.Equals(true))
+                            addAsterisk(identifier);
                         priceIncrease = true;
                     }
                     else
                     {
                         change = initialPrice - newPriceS;
-                        sendNotficiation(false, change, Properties.Settings.Default.item4, Properties.Settings.Default.price4, newPrice);
+                        if (Properties.Settings.Default.allowNotifications.Equals(true))
+                            sendNotficiation(false, change, Properties.Settings.Default.item4, Properties.Settings.Default.price4, newPrice);
+                        if (Properties.Settings.Default.setAsterisk.Equals(true))
+                            addAsterisk(identifier);
                         priceIncrease = false;
                     }
                     break;
@@ -707,13 +754,19 @@ namespace Amazon_s_Best_Prices
                     if (newPriceS > initialPrice)
                     {
                         change = newPriceS - initialPrice;
-                        sendNotficiation(true, change, Properties.Settings.Default.item5, Properties.Settings.Default.price5, newPrice);
+                        if (Properties.Settings.Default.allowNotifications.Equals(true))
+                            sendNotficiation(true, change, Properties.Settings.Default.item5, Properties.Settings.Default.price5, newPrice);
+                        if (Properties.Settings.Default.setAsterisk.Equals(true))
+                            addAsterisk(identifier);
                         priceIncrease = true;
                     }
                     else
                     {
                         change = initialPrice - newPriceS;
-                        sendNotficiation(false, change, Properties.Settings.Default.item5, Properties.Settings.Default.price5, newPrice);
+                        if (Properties.Settings.Default.allowNotifications.Equals(true))
+                            sendNotficiation(false, change, Properties.Settings.Default.item5, Properties.Settings.Default.price5, newPrice);
+                        if (Properties.Settings.Default.setAsterisk.Equals(true))
+                            addAsterisk(identifier);
                         priceIncrease = false;
                     }
                     break;
@@ -892,58 +945,6 @@ namespace Amazon_s_Best_Prices
             }
         }
 
-        //<--- Link label setup --->
-        private void label3_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start(Properties.Settings.Default.item1URL);
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start(Properties.Settings.Default.item2URL);
-        }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start(Properties.Settings.Default.item3URL);
-        }
-
-        private void label12_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start(Properties.Settings.Default.item4URL);
-        }
-
-        private void label15_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start(Properties.Settings.Default.item5URL);
-        }
-
-        //<--- Page completed handlers --->
-        public void pageCompleted1(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-            setCompleted(1);
-        }
-
-        public void pageCompleted2(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-            setCompleted(2);
-        }
-
-        public void pageCompleted3(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-            setCompleted(3);
-        }
-
-        public void pageCompleted4(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-            setCompleted(4);
-        }
-
-        public void pageCompleted5(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-            setCompleted(5);
-        }
-
         //<--- Page completed checkers --->
         private void completedChecker1_Tick(object sender, EventArgs e)
         {
@@ -990,22 +991,84 @@ namespace Amazon_s_Best_Prices
             }
         }
 
-        public Boolean checkCompleted(int identifier)
+        //<--- Add asterisk --->
+        private void addAsterisk(int identifier)
         {
             switch (identifier)
             {
                 case 1:
-                    return completed1;
+                    tabPage1.Text = "* " + Properties.Settings.Default.item1;
+                    break;
                 case 2:
-                    return completed2;
+                    tabPage2.Text = "* " + Properties.Settings.Default.item2;
+                    break;
                 case 3:
-                    return completed3;
+                    tabPage3.Text = "* " + Properties.Settings.Default.item3;
+                    break;
                 case 4:
-                    return completed4;
+                    tabPage4.Text = "* " + Properties.Settings.Default.item4;
+                    break;
                 case 5:
-                    return completed5;
+                    tabPage5.Text = "* " + Properties.Settings.Default.item5;
+                    break;
             }
-            return false;
+        }
+
+        //<--- Link label setup --->
+        private void label3_Click(object sender, EventArgs e)
+        {
+            if(Properties.Settings.Default.itemSpot1.Equals(true))
+                System.Diagnostics.Process.Start(Properties.Settings.Default.item1URL);
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.itemSpot2.Equals(true))
+                System.Diagnostics.Process.Start(Properties.Settings.Default.item2URL);
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.itemSpot3.Equals(true))
+                System.Diagnostics.Process.Start(Properties.Settings.Default.item3URL);
+        }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.itemSpot4.Equals(true))
+                System.Diagnostics.Process.Start(Properties.Settings.Default.item4URL);
+        }
+
+        private void label15_Click(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.itemSpot5.Equals(true))
+                System.Diagnostics.Process.Start(Properties.Settings.Default.item5URL);
+        }
+
+        //<--- Page completed handlers --->
+        public void pageCompleted1(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            setCompleted(1);
+        }
+
+        public void pageCompleted2(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            setCompleted(2);
+        }
+
+        public void pageCompleted3(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            setCompleted(3);
+        }
+
+        public void pageCompleted4(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            setCompleted(4);
+        }
+
+        public void pageCompleted5(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            setCompleted(5);
         }
 
         private void itemView_FormClosing(object sender, FormClosingEventArgs e)
@@ -1015,9 +1078,9 @@ namespace Amazon_s_Best_Prices
             main.Show();
         }
 
-        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void notifyIcon1_Click(object sender, EventArgs e)
         {
-            this.Show();
+            this.Activate();
         }
     }
 }

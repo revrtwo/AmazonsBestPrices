@@ -8,6 +8,7 @@ namespace Amazon_s_Best_Prices
         String itemPrice;
         public Boolean completed;
         static WebBrowser web = new WebBrowser();
+        private about about;
 
         public main()
         {
@@ -54,7 +55,7 @@ namespace Amazon_s_Best_Prices
             completed = false;
             searchBtn.Enabled = false;
             addBtn.Enabled = false;
-            viewBtn.Enabled = false;
+            trackedToolStripMenuItem.Enabled = false;
             pictureBox1.Visible = true;
             try
             {
@@ -79,11 +80,11 @@ namespace Amazon_s_Best_Prices
                 if(itemName.Length>= 72)
                 {
                     String visibleName = itemName.Substring(0, 72);
-                    label2.Text = "Item Name: " + visibleName + "...";
+                    label2.Text = "Item name: " + visibleName + "...";
                 }
                 else
                 {
-                    label2.Text = "Item Name: " + itemName;
+                    label2.Text = "Item name: " + itemName;
                 }
                 Properties.Settings.Default.tempITEM = itemName;  
             }
@@ -125,9 +126,9 @@ namespace Amazon_s_Best_Prices
             }
             else
             {
-                label3.Text = "Item Price: " + itemPrice;
+                label3.Text = "Item price: " + itemPrice;
                 addBtn.Enabled = true;
-                viewBtn.Enabled = true;
+                trackedToolStripMenuItem.Enabled = true;
                 Properties.Settings.Default.tempPRICE = itemPrice;
             }
         }
@@ -142,20 +143,64 @@ namespace Amazon_s_Best_Prices
                 checkName();
                 checkPrice();
                 searchBtn.Enabled = true;
-                viewBtn.Enabled = true;
+                trackedToolStripMenuItem.Enabled = true;
                 pictureBox1.Visible = false;
             }
-        }
-
-        //Dev. test button
-        private void button3_Click(object sender, EventArgs e)
-        {
-            
         }
 
         private void pageCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             setCompleted();
+        }
+
+        private void trackedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            itemView showCase = new itemView();
+            showCase.Show();
+            this.Hide();
+        }
+
+        private void optionStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            settings settings = new settings();
+            settings.Show();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            activeForm.Start();
+            about = new about();
+            about.Show();
+        }
+
+        private void activeForm_Tick(object sender, EventArgs e)
+        {
+            if (about.Visible == true)
+            {
+                this.Enabled = false;
+            }
+            else
+            {
+                activeForm.Stop();
+                this.Enabled = true;
+                this.Activate();
+            }
+
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                about.Hide();
+            }
+            else
+                about.Activate();
+        }
+
+        private void textBox1_Click(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.clearURLBox.Equals(true))
+            {
+                textBox1.Text = null;
+            }
         }
 
         private void main_FormClosed(object sender, FormClosedEventArgs e)
@@ -164,5 +209,10 @@ namespace Amazon_s_Best_Prices
             Application.Exit();
         }
 
+        //Dev. test button
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
