@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(main));
             this.completedChecker = new System.Windows.Forms.Timer(this.components);
-            this.activeForm = new System.Windows.Forms.Timer(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -45,6 +44,7 @@
             this.trackedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateAvaliableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -53,10 +53,6 @@
             // completedChecker
             // 
             this.completedChecker.Tick += new System.EventHandler(this.completedChecker_Tick);
-            // 
-            // activeForm
-            // 
-            this.activeForm.Tick += new System.EventHandler(this.activeForm_Tick);
             // 
             // panel1
             // 
@@ -172,7 +168,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.trackedToolStripMenuItem,
             this.toolStripMenuItem1,
-            this.aboutToolStripMenuItem});
+            this.aboutToolStripMenuItem,
+            this.updateAvaliableToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(520, 24);
@@ -206,6 +203,16 @@
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
+            // updateAvaliableToolStripMenuItem
+            // 
+            this.updateAvaliableToolStripMenuItem.Font = new System.Drawing.Font("Nirmala UI", 9F);
+            this.updateAvaliableToolStripMenuItem.ForeColor = System.Drawing.Color.Yellow;
+            this.updateAvaliableToolStripMenuItem.Name = "updateAvaliableToolStripMenuItem";
+            this.updateAvaliableToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.updateAvaliableToolStripMenuItem.Text = "Update";
+            this.updateAvaliableToolStripMenuItem.Visible = false;
+            this.updateAvaliableToolStripMenuItem.Click += new System.EventHandler(this.updateAvaliableToolStripMenuItem_Click);
+            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -223,7 +230,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Amazon\'s Best Prices";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.main_FormClosed);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.main_FormClosing);
             this.Load += new System.EventHandler(this.main_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -250,7 +257,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem trackedToolStripMenuItem;
-        private System.Windows.Forms.Timer activeForm;
+        private System.Windows.Forms.ToolStripMenuItem updateAvaliableToolStripMenuItem;
     }
 }
 

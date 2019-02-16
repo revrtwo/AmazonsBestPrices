@@ -19,7 +19,6 @@ namespace Amazon_s_Best_Prices
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            main main = new main();
             String itemName = itemNameBox.Text;
             String itemCost = Properties.Settings.Default.tempPRICE;
             String itemURL = Properties.Settings.Default.tempURL;
@@ -31,12 +30,10 @@ namespace Amazon_s_Best_Prices
                 {
                     add(avaliableIndex, itemName, itemCost, itemURL);
                     this.Close();
-                    main.Show();
                 }
                 else
                 {
                     this.Close();
-                    main.Show();
                 }
             }
             else

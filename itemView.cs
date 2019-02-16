@@ -8,18 +8,20 @@ namespace Amazon_s_Best_Prices
     {
         public String urlText = "Click here for item webpage";
         public String nullString = "No item is being tracked here";
+        public String lastRefresh;
         public Boolean completed1;
         public Boolean completed2;
         public Boolean completed3;
         public Boolean completed4;
         public Boolean completed5;
-        public int currentUpdating;
+        public Boolean allowOneTimeNotify = true;
         static WebBrowser web1 = new WebBrowser();
         static WebBrowser web2 = new WebBrowser();
         static WebBrowser web3 = new WebBrowser();
         static WebBrowser web4 = new WebBrowser();
         static WebBrowser web5 = new WebBrowser();
-
+        public int currentUpdating;
+        public int devCnt;
         public itemView()
         {
             InitializeComponent();
@@ -65,6 +67,11 @@ namespace Amazon_s_Best_Prices
             return false;
         }
 
+        public String returnLastUpdate()
+        {
+            return lastRefresh;
+        }
+
         public void setCompletedFalse()
         {
             completed1 = false;
@@ -83,15 +90,34 @@ namespace Amazon_s_Best_Prices
             web5.ScriptErrorsSuppressed = true;
         }
 
+        private void setTimerInterval()
+        {
+            try
+            {
+                updateTimer.Interval = returnTime(Properties.Settings.Default.updateInterval);
+            }
+            catch
+            {
+
+            }
+        }
+
         private void itemView_Load(object sender, EventArgs e)
         {
             supressScriptErrors();
+            setTimerInterval();
             currentUpdating = -1;
             refreshNames();
         }
 
         public void refreshNames()
         {
+            lastRefresh = DateTime.Now.ToString();
+            if (Properties.Settings.Default.allowBackgroundUpdates.Equals(true))
+            {
+                updateTimer.Start();
+            }
+
             //Tab One
             if (Properties.Settings.Default.itemSpot1 == false)
             {
@@ -104,10 +130,17 @@ namespace Amazon_s_Best_Prices
             {
                 label1.Text = Properties.Settings.Default.item1;
                 label2.Text = Properties.Settings.Default.price1;
-                if (Properties.Settings.Default.item1URL.Length >= 75)
-                    label3.Text = Properties.Settings.Default.item1URL.Substring(0, 75) + "...";
+                if (Properties.Settings.Default.hideURL.Equals(true))
+                {
+                    label3.Text = urlText;
+                }
                 else
-                    label3.Text = Properties.Settings.Default.item1URL;
+                {
+                    if (Properties.Settings.Default.item1URL.Length >= 75)
+                        label3.Text = Properties.Settings.Default.item1URL.Substring(0, 75) + "...";
+                    else
+                        label3.Text = Properties.Settings.Default.item1URL;
+                }
                 tabPage1.Text = Properties.Settings.Default.item1;
                 updatePrices(1);
             }
@@ -123,10 +156,17 @@ namespace Amazon_s_Best_Prices
             {
                 label4.Text = Properties.Settings.Default.item2;
                 label5.Text = Properties.Settings.Default.price2;
-                if (Properties.Settings.Default.item2URL.Length >= 75)
-                    label6.Text = Properties.Settings.Default.item2URL.Substring(0, 75) + "...";
+                if (Properties.Settings.Default.hideURL.Equals(true))
+                {
+                    label6.Text = urlText;
+                }
                 else
-                    label6.Text = Properties.Settings.Default.item2URL;
+                {
+                    if (Properties.Settings.Default.item2URL.Length >= 75)
+                        label6.Text = Properties.Settings.Default.item2URL.Substring(0, 75) + "...";
+                    else
+                        label6.Text = Properties.Settings.Default.item2URL;
+                }
                 tabPage2.Text = Properties.Settings.Default.item2;
                 updatePrices(2);
             }
@@ -142,10 +182,17 @@ namespace Amazon_s_Best_Prices
             {
                 label7.Text = Properties.Settings.Default.item3;
                 label8.Text = Properties.Settings.Default.price3;
-                if (Properties.Settings.Default.item3URL.Length >= 75)
-                    label9.Text = Properties.Settings.Default.item3URL.Substring(0, 75) + "...";
+                if (Properties.Settings.Default.hideURL.Equals(true))
+                {
+                    label9.Text = urlText;
+                }
                 else
-                    label9.Text = Properties.Settings.Default.item3URL;
+                {
+                    if (Properties.Settings.Default.item3URL.Length >= 75)
+                        label9.Text = Properties.Settings.Default.item3URL.Substring(0, 75) + "...";
+                    else
+                        label9.Text = Properties.Settings.Default.item3URL;
+                }
                 tabPage3.Text = Properties.Settings.Default.item3;
                 updatePrices(3);
             }
@@ -161,10 +208,17 @@ namespace Amazon_s_Best_Prices
             {
                 label10.Text = Properties.Settings.Default.item4;
                 label11.Text = Properties.Settings.Default.price4;
-                if (Properties.Settings.Default.item4URL.Length >= 75)
-                    label12.Text = Properties.Settings.Default.item4URL.Substring(0, 75) + "...";
+                if (Properties.Settings.Default.hideURL.Equals(true))
+                {
+                    label12.Text = urlText;
+                }
                 else
-                    label12.Text = Properties.Settings.Default.item4URL;
+                {
+                    if (Properties.Settings.Default.item4URL.Length >= 75)
+                        label12.Text = Properties.Settings.Default.item4URL.Substring(0, 75) + "...";
+                    else
+                        label12.Text = Properties.Settings.Default.item4URL;
+                }
                 tabPage4.Text = Properties.Settings.Default.item4;
                 updatePrices(4);
             }
@@ -180,10 +234,17 @@ namespace Amazon_s_Best_Prices
             {
                 label13.Text = Properties.Settings.Default.item5;
                 label14.Text = Properties.Settings.Default.price5;
-                if (Properties.Settings.Default.item5URL.Length >= 75)
-                    label15.Text = Properties.Settings.Default.item5URL.Substring(0, 75) + "...";
+                if (Properties.Settings.Default.hideURL.Equals(true))
+                {
+                    label15.Text = urlText;
+                }
                 else
-                    label15.Text = Properties.Settings.Default.item5URL;
+                {
+                    if (Properties.Settings.Default.item5URL.Length >= 75)
+                        label15.Text = Properties.Settings.Default.item5URL.Substring(0, 75) + "...";
+                    else
+                        label15.Text = Properties.Settings.Default.item5URL;
+                }
                 tabPage5.Text = Properties.Settings.Default.item5;
                 updatePrices(5);
             }
@@ -826,7 +887,7 @@ namespace Amazon_s_Best_Prices
         }
 
         //<--- Delete cases --->
-        private void deleteThis(int identifier)
+        public void deleteThis(int identifier)
         {
             switch (identifier)
             {
@@ -1071,16 +1132,123 @@ namespace Amazon_s_Best_Prices
             setCompleted(5);
         }
 
-        private void itemView_FormClosing(object sender, FormClosingEventArgs e)
+        //<--- Background tracker updater --->
+        private void updateTimer_Tick(object sender, EventArgs e)
         {
-            Properties.Settings.Default.Save();
-            main main = new main();
-            main.Show();
+            int interval = Properties.Settings.Default.updateInterval;
+            int time = updateTimer.Interval;
+            if (checkUsingTrackers().Equals(false))
+            {
+                updateTimer.Stop();
+            }
+            if (Properties.Settings.Default.allowBackgroundUpdates.Equals(true) && returnTime(interval) >= time && Enabled != false)
+            {
+                lastRefresh = DateTime.Now.ToString();
+                updateTimer.Stop();
+                refreshNames();
+                refreshUpdateTimer();
+            }
+        }
+
+        private int returnTime(int interval)
+        {
+            //Intervals --> || 0: 1 Hour(s) || 1: 3 Hours(s) || 2: 6 Hour(s) || 3: 8 Hour(s) ||
+            int time = -1;
+            switch (interval)
+            {
+                case 0:
+                    time = 3600000;
+                    break;
+                case 1:
+                    time = 10800000;
+                    break;
+                case 2:
+                    time = 21600000;
+                    break;
+                case 3:
+                    time = 28800000;
+                    break;
+            }
+            return time;
+        }
+
+        private void refreshUpdateTimer()
+        {
+            updateTimer.Start();
         }
 
         private void notifyIcon1_Click(object sender, EventArgs e)
         {
-            this.Activate();
+            if(FormWindowState.Minimized.Equals(true))
+            contextMenuStrip1.Show();
+        }
+
+        private void notifyIcon1_DoubleClick(object sender, EventArgs e)
+        {
+            if (Enabled.Equals(true))
+            {
+                WindowState = FormWindowState.Normal;
+                Activate();
+                Show();
+            }
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            Application.Exit();
+        }
+
+        private Boolean checkUsingTrackers()
+        {
+            if (Properties.Settings.Default.itemSpot1.Equals(true))
+                return true;
+            else if (Properties.Settings.Default.itemSpot2.Equals(true))
+                return true;
+            else if (Properties.Settings.Default.itemSpot3.Equals(true))
+                return true;
+            else if (Properties.Settings.Default.itemSpot4.Equals(true))
+                return true;
+            else if (Properties.Settings.Default.itemSpot5.Equals(true))
+                return true;
+            else
+                return false;
+        }
+
+        private void itemView_Resize(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized && Properties.Settings.Default.allowBackgroundUpdates.Equals(true) && allowOneTimeNotify.Equals(true) && !checkUsingTrackers().Equals(false))
+            {
+                sendRunningBackground();
+                allowOneTimeNotify = false;
+            }           
+        }
+
+        private void sendRunningBackground()
+        {
+            notifyIcon1.BalloonTipTitle = "Background updates enabled";
+            notifyIcon1.BalloonTipText = "Application will check for updates in the background";
+            notifyIcon1.ShowBalloonTip(1000);
+        }
+
+        //Developer test button
+        private void devButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            developerTools tools = new developerTools();
+            tools.Show();
+        }
+
+        private void itemView_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Enabled = false;
+        }
+
+        private void item1Status_Click(object sender, EventArgs e)
+        {
+            devCnt++;
+            if (devCnt == 10)
+                devButton.Visible = true;
         }
     }
 }

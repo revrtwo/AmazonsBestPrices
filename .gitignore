@@ -7,3 +7,5 @@ bin/Debug/Amazon's Best Prices.exe
 obj/Debug/Amazon's Best Prices.exe
 obj/Release/ 
 bin/
+/obj/x64/
+/obj/x86/

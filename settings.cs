@@ -5,6 +5,8 @@ namespace Amazon_s_Best_Prices
 {
     public partial class settings : Form
     {
+        private bgSetting bgSetting;
+
         public settings()
         {
             InitializeComponent();
@@ -15,6 +17,21 @@ namespace Amazon_s_Best_Prices
             refreshSettings();
         }
 
+        //Substitute tracker url setting
+        private void urlBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (urlBox.Checked.Equals(true))
+            {
+                Properties.Settings.Default.hideURL = true;
+            }
+            else
+            {
+                Properties.Settings.Default.hideURL = false;
+
+            }
+        }
+
+        //Clear url box setting
         private void clearBox_CheckedChanged(object sender, EventArgs e)
         {
             if (clearBox.Checked.Equals(true))
@@ -27,6 +44,7 @@ namespace Amazon_s_Best_Prices
             }
         }
 
+        //Allow notifications setting
         private void notificationBox_CheckedChanged(object sender, EventArgs e)
         {
             if (notificationBox.Checked.Equals(true))
@@ -39,6 +57,7 @@ namespace Amazon_s_Best_Prices
             }
         }
 
+        //Asterisk Setting
         private void asteriskBox_CheckedChanged(object sender, EventArgs e)
         {
             if (asteriskBox.Checked.Equals(true))
@@ -51,8 +70,42 @@ namespace Amazon_s_Best_Prices
             }
         }
 
+        //Allow backgrounds updates settings
+        private void updateBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (updateBox.Checked.Equals(true) && Properties.Settings.Default.allowBackgroundUpdates.Equals(false))
+            {
+                this.Hide();
+                bgSetting = new bgSetting();
+                bgSetting.SizeGripStyle = SizeGripStyle.Hide;
+                bgSetting.ShowDialog();
+                this.Show();
+            }
+            else if (updateBox.Checked.Equals(false))
+            {
+                Properties.Settings.Default.allowBackgroundUpdates = false;
+                Properties.Settings.Default.updateInterval = -1;
+                Properties.Settings.Default.Save();
+                updateBox.Checked = false;
+            }
+            else if (Properties.Settings.Default.allowBackgroundUpdates.Equals(true))
+            {
+                updateBox.Checked = true;
+            }
+
+        }
+
         private void refreshSettings()
         {
+            if (Properties.Settings.Default.hideURL.Equals(true))
+            {
+                urlBox.Checked = true;
+            }
+            else
+            {
+                urlBox.Checked = false;
+            }
+
             if (Properties.Settings.Default.clearURLBox.Equals(true))
             {
                 clearBox.Checked = true;
@@ -79,15 +132,20 @@ namespace Amazon_s_Best_Prices
             {
                 asteriskBox.Checked = false;
             }
+
+            if (Properties.Settings.Default.allowBackgroundUpdates.Equals(true))
+            {
+                updateBox.Checked = true;
+            }
+            else
+            {
+                updateBox.Checked = false;
+            }
         }
 
-        private void settings_FormClosed(object sender, FormClosedEventArgs e)
+        private void settings_FormClosing(object sender, FormClosingEventArgs e)
         {
             Properties.Settings.Default.Save();
-            main main = new main();
-            main.Show();
         }
-
-        
     }
 }

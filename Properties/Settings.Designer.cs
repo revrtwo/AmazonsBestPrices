@@ -12,7 +12,7 @@ namespace Amazon_s_Best_Prices.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.8.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -332,6 +332,66 @@ namespace Amazon_s_Best_Prices.Properties {
             }
             set {
                 this["setAsterisk"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int updateInterval {
+            get {
+                return ((int)(this["updateInterval"]));
+            }
+            set {
+                this["updateInterval"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool allowBackgroundUpdates {
+            get {
+                return ((bool)(this["allowBackgroundUpdates"]));
+            }
+            set {
+                this["allowBackgroundUpdates"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool hideURL {
+            get {
+                return ((bool)(this["hideURL"]));
+            }
+            set {
+                this["hideURL"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://raw.githubusercontent.com/rvertwo/AmazonsBestPrices/master/latest.txt")]
+        public string versionControl {
+            get {
+                return ((string)(this["versionControl"]));
+            }
+            set {
+                this["versionControl"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://github.com/rvertwo/AmazonsBestPrices/releases")]
+        public string downloadsSite {
+            get {
+                return ((string)(this["downloadsSite"]));
+            }
+            set {
+                this["downloadsSite"] = value;
             }
         }
     }

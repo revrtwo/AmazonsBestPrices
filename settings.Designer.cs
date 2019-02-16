@@ -30,7 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(settings));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.urlBox = new System.Windows.Forms.CheckBox();
+            this.updateBox = new System.Windows.Forms.CheckBox();
             this.notificationBox = new System.Windows.Forms.CheckBox();
             this.asteriskBox = new System.Windows.Forms.CheckBox();
             this.clearBox = new System.Windows.Forms.CheckBox();
@@ -42,7 +43,8 @@
             // 
             this.panel1.BackgroundImage = global::Amazon_s_Best_Prices.Properties.Resources.gradient;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel1.Controls.Add(this.checkBox1);
+            this.panel1.Controls.Add(this.urlBox);
+            this.panel1.Controls.Add(this.updateBox);
             this.panel1.Controls.Add(this.notificationBox);
             this.panel1.Controls.Add(this.asteriskBox);
             this.panel1.Controls.Add(this.clearBox);
@@ -50,23 +52,36 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(400, 185);
+            this.panel1.Size = new System.Drawing.Size(400, 177);
             this.panel1.TabIndex = 0;
             // 
-            // checkBox1
+            // urlBox
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.BackColor = System.Drawing.Color.Transparent;
-            this.checkBox1.Enabled = false;
-            this.checkBox1.Font = new System.Drawing.Font("Nirmala UI", 8.25F);
-            this.checkBox1.ForeColor = System.Drawing.Color.White;
-            this.checkBox1.Location = new System.Drawing.Point(31, 114);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(199, 17);
-            this.checkBox1.TabIndex = 8;
-            this.checkBox1.Text = "Check for updates in background";
-            this.checkBox1.UseVisualStyleBackColor = false;
-            this.checkBox1.Visible = false;
+            this.urlBox.AutoSize = true;
+            this.urlBox.BackColor = System.Drawing.Color.Transparent;
+            this.urlBox.Font = new System.Drawing.Font("Nirmala UI", 8.25F);
+            this.urlBox.ForeColor = System.Drawing.Color.White;
+            this.urlBox.Location = new System.Drawing.Point(31, 45);
+            this.urlBox.Name = "urlBox";
+            this.urlBox.Size = new System.Drawing.Size(134, 17);
+            this.urlBox.TabIndex = 9;
+            this.urlBox.Text = "Substitute tracker url";
+            this.urlBox.UseVisualStyleBackColor = false;
+            this.urlBox.CheckedChanged += new System.EventHandler(this.urlBox_CheckedChanged);
+            // 
+            // updateBox
+            // 
+            this.updateBox.AutoSize = true;
+            this.updateBox.BackColor = System.Drawing.Color.Transparent;
+            this.updateBox.Font = new System.Drawing.Font("Nirmala UI", 8.25F);
+            this.updateBox.ForeColor = System.Drawing.Color.White;
+            this.updateBox.Location = new System.Drawing.Point(31, 137);
+            this.updateBox.Name = "updateBox";
+            this.updateBox.Size = new System.Drawing.Size(199, 17);
+            this.updateBox.TabIndex = 8;
+            this.updateBox.Text = "Check for updates in background";
+            this.updateBox.UseVisualStyleBackColor = false;
+            this.updateBox.CheckedChanged += new System.EventHandler(this.updateBox_CheckedChanged);
             // 
             // notificationBox
             // 
@@ -74,7 +89,7 @@
             this.notificationBox.BackColor = System.Drawing.Color.Transparent;
             this.notificationBox.Font = new System.Drawing.Font("Nirmala UI", 8.25F);
             this.notificationBox.ForeColor = System.Drawing.Color.White;
-            this.notificationBox.Location = new System.Drawing.Point(31, 68);
+            this.notificationBox.Location = new System.Drawing.Point(31, 91);
             this.notificationBox.Name = "notificationBox";
             this.notificationBox.Size = new System.Drawing.Size(163, 17);
             this.notificationBox.TabIndex = 7;
@@ -88,7 +103,7 @@
             this.asteriskBox.BackColor = System.Drawing.Color.Transparent;
             this.asteriskBox.Font = new System.Drawing.Font("Nirmala UI", 8.25F);
             this.asteriskBox.ForeColor = System.Drawing.Color.White;
-            this.asteriskBox.Location = new System.Drawing.Point(31, 91);
+            this.asteriskBox.Location = new System.Drawing.Point(31, 114);
             this.asteriskBox.Name = "asteriskBox";
             this.asteriskBox.Size = new System.Drawing.Size(191, 17);
             this.asteriskBox.TabIndex = 6;
@@ -102,11 +117,11 @@
             this.clearBox.BackColor = System.Drawing.Color.Transparent;
             this.clearBox.Font = new System.Drawing.Font("Nirmala UI", 8.25F);
             this.clearBox.ForeColor = System.Drawing.Color.White;
-            this.clearBox.Location = new System.Drawing.Point(31, 45);
+            this.clearBox.Location = new System.Drawing.Point(31, 68);
             this.clearBox.Name = "clearBox";
-            this.clearBox.Size = new System.Drawing.Size(133, 17);
+            this.clearBox.Size = new System.Drawing.Size(161, 17);
             this.clearBox.TabIndex = 5;
-            this.clearBox.Text = "Clear url box on click";
+            this.clearBox.Text = "Clear url box when clicked";
             this.clearBox.UseVisualStyleBackColor = false;
             this.clearBox.CheckedChanged += new System.EventHandler(this.clearBox_CheckedChanged);
             // 
@@ -127,7 +142,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(400, 185);
+            this.ClientSize = new System.Drawing.Size(400, 177);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -136,7 +151,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = " ";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.settings_FormClosed);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.settings_FormClosing);
             this.Load += new System.EventHandler(this.settings_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -151,6 +166,7 @@
         private System.Windows.Forms.CheckBox clearBox;
         private System.Windows.Forms.CheckBox asteriskBox;
         private System.Windows.Forms.CheckBox notificationBox;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox updateBox;
+        private System.Windows.Forms.CheckBox urlBox;
     }
 }

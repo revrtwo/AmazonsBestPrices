@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(itemView));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.devButton = new System.Windows.Forms.Button();
             this.item1Status = new System.Windows.Forms.PictureBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -72,6 +73,9 @@
             this.completedChecker4 = new System.Windows.Forms.Timer(this.components);
             this.completedChecker5 = new System.Windows.Forms.Timer(this.components);
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateTimer = new System.Windows.Forms.Timer(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.item1Status)).BeginInit();
@@ -83,6 +87,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.item4Status)).BeginInit();
             this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.item5Status)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -102,6 +107,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.White;
+            this.tabPage1.Controls.Add(this.devButton);
             this.tabPage1.Controls.Add(this.item1Status);
             this.tabPage1.Controls.Add(this.richTextBox1);
             this.tabPage1.Controls.Add(this.label3);
@@ -115,6 +121,18 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             // 
+            // devButton
+            // 
+            this.devButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.devButton.Location = new System.Drawing.Point(326, 154);
+            this.devButton.Name = "devButton";
+            this.devButton.Size = new System.Drawing.Size(75, 23);
+            this.devButton.TabIndex = 13;
+            this.devButton.Text = "Developer";
+            this.devButton.UseVisualStyleBackColor = true;
+            this.devButton.Visible = false;
+            this.devButton.Click += new System.EventHandler(this.devButton_Click);
+            // 
             // item1Status
             // 
             this.item1Status.Location = new System.Drawing.Point(6, 154);
@@ -123,6 +141,7 @@
             this.item1Status.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.item1Status.TabIndex = 12;
             this.item1Status.TabStop = false;
+            this.item1Status.Click += new System.EventHandler(this.item1Status_Click);
             // 
             // richTextBox1
             // 
@@ -507,10 +526,32 @@
             // 
             // notifyIcon1
             // 
+            this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip1;
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "Amazon\'s Best Prices";
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.Click += new System.EventHandler(this.notifyIcon1_Click);
+            this.notifyIcon1.DoubleClick += new System.EventHandler(this.notifyIcon1_DoubleClick);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.AllowDrop = true;
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.closeToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(104, 26);
+            // 
+            // closeToolStripMenuItem
+            // 
+            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.closeToolStripMenuItem.Text = "Close";
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
+            // 
+            // updateTimer
+            // 
+            this.updateTimer.Interval = 28800001;
+            this.updateTimer.Tick += new System.EventHandler(this.updateTimer_Tick);
             // 
             // itemView
             // 
@@ -522,13 +563,13 @@
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "itemView";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Tracked Items";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.itemView_FormClosing);
             this.Load += new System.EventHandler(this.itemView_Load);
+            this.Resize += new System.EventHandler(this.itemView_Resize);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -545,6 +586,7 @@
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.item5Status)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -592,5 +634,9 @@
         private System.Windows.Forms.Timer completedChecker4;
         private System.Windows.Forms.Timer completedChecker5;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
+        public System.Windows.Forms.Button devButton;
+        public System.Windows.Forms.Timer updateTimer;
     }
 }

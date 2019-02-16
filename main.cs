@@ -1,14 +1,23 @@
 ﻿using System;
+using System.Net;
+using System.Net.NetworkInformation;
 using System.Windows.Forms;
 
 namespace Amazon_s_Best_Prices
 {
     public partial class main : Form
     {
-        String itemPrice;
+        public String itemPrice;
         public Boolean completed;
-        static WebBrowser web = new WebBrowser();
-        private about about;
+        public int formOpener = -1;
+        public WebBrowser web = new WebBrowser();
+        public WebClient web1 = new WebClient();
+        public String version;
+        public String latest;
+        public int latestI;
+        public int versionI;
+        bool connection = NetworkInterface.GetIsNetworkAvailable();
+        static itemView view = new itemView();
 
         public main()
         {
@@ -32,14 +41,43 @@ namespace Amazon_s_Best_Prices
 
         private void main_Load(object sender, EventArgs e)
         {
+            view.Enabled = false;
+            checkForUpdates();
             web.ScriptErrorsSuppressed = true;
+        }
+
+        private void checkForUpdates()
+        {
+            version = ProductVersion;
+            version = version.Replace(".", "");
+            versionI = int.Parse(version);
+            if (connection.Equals(true))
+            {
+                try
+                {
+                    latest = web1.DownloadString(Properties.Settings.Default.versionControl);
+                    latest = latest.Replace(".", "");
+                    latestI = int.Parse(latest);
+                    if (versionI < latestI)
+                    {
+                        updateAvaliableToolStripMenuItem.Visible = true;
+                    }
+                }
+                catch
+                {
+                    //Connection cannot be made
+                }
+            }
         }
 
         private void addBtn_Click(object sender, EventArgs e)
         {
-            option option = new option();
-            option.Show();
             this.Hide();
+            option option = new option();
+            option.SizeGripStyle = SizeGripStyle.Hide;
+            option.ShowDialog();
+            this.Show();
+            resetDisplay();
         }
 
         private void viewBtn_Click(object sender, EventArgs e)
@@ -70,6 +108,13 @@ namespace Amazon_s_Best_Prices
             {
                MessageBox.Show("An error has occured, please try again.", "URL error",MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
+        }
+
+        private void resetDisplay()
+        {
+            label2.Text = "Item name:";
+            label3.Text = "Item price:";
+            textBox1.Text = "";
         }
 
         private void checkName()
@@ -155,44 +200,25 @@ namespace Amazon_s_Best_Prices
 
         private void trackedToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            itemView showCase = new itemView();
-            showCase.Show();
             this.Hide();
+            view.Enabled = true;
+            view.SizeGripStyle = SizeGripStyle.Hide;
+            view.ShowDialog();
+            this.Show();
         }
 
         private void optionStripMenuItem1_Click(object sender, EventArgs e)
         {
             this.Hide();
             settings settings = new settings();
-            settings.Show();
+            settings.ShowDialog();
+            this.Show();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            activeForm.Start();
-            about = new about();
-            about.Show();
-        }
-
-        private void activeForm_Tick(object sender, EventArgs e)
-        {
-            if (about.Visible == true)
-            {
-                this.Enabled = false;
-            }
-            else
-            {
-                activeForm.Stop();
-                this.Enabled = true;
-                this.Activate();
-            }
-
-            if (this.WindowState == FormWindowState.Minimized)
-            {
-                about.Hide();
-            }
-            else
-                about.Activate();
+            about about = new about();
+            about.ShowDialog();
         }
 
         private void textBox1_Click(object sender, EventArgs e)
@@ -203,13 +229,19 @@ namespace Amazon_s_Best_Prices
             }
         }
 
-        private void main_FormClosed(object sender, FormClosedEventArgs e)
+        private void updateAvaliableToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.Save();
-            Application.Exit();
+            updater update = new updater();
+            update.SizeGripStyle = SizeGripStyle.Hide;
+            update.ShowDialog();
         }
 
-        //Dev. test button
+        private void main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Properties.Settings.Default.Save();
+        }
+
+        //Developer test button
         private void button3_Click(object sender, EventArgs e)
         {
 
