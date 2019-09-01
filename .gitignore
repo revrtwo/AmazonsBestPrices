@@ -9,3 +9,4 @@ obj/Release/
 bin/
 /obj/x64/
 /obj/x86/
+.vs
