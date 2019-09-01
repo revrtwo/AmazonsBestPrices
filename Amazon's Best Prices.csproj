@@ -118,7 +118,6 @@
     <Compile Include="settings.Designer.cs">
       <DependentUpon>settings.cs</DependentUpon>
     </Compile>
-    <Compile Include="TrackedItem.cs" />
     <Compile Include="main.cs">
       <SubType>Form</SubType>
     </Compile>
