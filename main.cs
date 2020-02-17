@@ -1,16 +1,15 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Windows.Forms;
+using Trackers;
 
 namespace Amazon_s_Best_Prices
 {
     public partial class main : Form
     {
-        public String itemPrice;
-        public Boolean completed;
         public int formOpener = -1;
-        public WebBrowser web = new WebBrowser();
         public WebClient web1 = new WebClient();
         public String version;
         public String latest;
@@ -19,33 +18,134 @@ namespace Amazon_s_Best_Prices
         bool connection = NetworkInterface.GetIsNetworkAvailable();
         static itemView view = new itemView();
 
+        Tracker[] tempList = new Tracker[1];
+        BackgroundWorker bg = new BackgroundWorker();
+
         public main()
         {
             InitializeComponent();
-        }
-
-        private void setCompleted()
-        {
-            completed = true;
-        }
-
-        private Boolean checkCompleted()
-        {
-            return completed;
-        }
-
-        private void setURL(String url)
-        {
-            Properties.Settings.Default.tempURL = url;
+            bg.DoWork += Bg_DoWork;
+            bg.WorkerReportsProgress = true;
+            bg.WorkerSupportsCancellation = true;
+            view.Enabled = false;
         }
 
         private void main_Load(object sender, EventArgs e)
         {
-            view.Enabled = false;
             checkForUpdates();
-            web.ScriptErrorsSuppressed = true;
         }
 
+        private void Bg_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+            for (int i = 1; i <= 15; i++)
+            {
+                if (worker.CancellationPending == true)
+                {
+                    e.Cancel = true;
+                    break;
+                }
+                else
+                {
+                    System.Threading.Thread.Sleep(1000);
+                    worker.ReportProgress(i * 10);
+                }
+
+                if (tempList[0].getCompleted())
+                {
+                    if(label2.InvokeRequired && label3.InvokeRequired)
+                    {
+                        label2.Invoke(new Action(() => label2.Text = "Item name: " + nameMinimizer(tempList[0].getName())));
+                        label3.Invoke(new Action(() => label3.Text = "Item price: " + tempList[0].getPrice()));
+                    }
+                    else
+                    {
+                        label2.Text = "Item name: " + nameMinimizer(tempList[0].getName());
+                        label3.Text = "Item price: " + tempList[0].getPrice();
+                    }
+                    simulateLoading(false);
+                    break;
+                }
+
+                if(i >= 15)
+                {
+                    MessageBox.Show("A listing for this item may not be available at this time.", "Item unavailable", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    simulateLoading(false);
+                }
+            }
+        }
+
+        //Button action
+        public void searchBtn_Click(object sender, EventArgs e)
+        {
+            simulateLoading(true);
+            tempList[0] = new Tracker(textBox1.Text);
+            bg.RunWorkerAsync();
+
+        }
+
+        private void viewBtn_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            itemView showCase = new itemView();
+            showCase.Show();
+        }
+
+        private void addBtn_Click(object sender, EventArgs e)
+        {
+            option op = new option(tempList[0]);
+            op.SizeGripStyle = SizeGripStyle.Hide;
+            op.ShowDialog();
+            resetDisplay();
+        }
+
+        //Visual methods
+        private string nameMinimizer(string name)
+        {
+            if (name.Length >= 72)
+            {
+                name = name.Substring(0, 72) + "...";
+            }
+            return name;
+        }
+
+        private void resetDisplay()
+        {
+            label2.Text = "Item name:";
+            label3.Text = "Item price:";
+            textBox1.Text = "";
+        }
+
+        private void simulateLoading(Boolean status)
+        {
+            if (status)
+            {
+                searchBtn.Invoke(new Action(() => searchBtn.Text = "Loading.."));
+                searchBtn.Invoke(new Action(() => searchBtn.Enabled = false));
+                addBtn.Invoke(new Action(() => addBtn.Enabled = false));
+                this.Invoke(new Action(() => trackedToolStripMenuItem.Enabled = false));
+                pictureBox1.Invoke(new Action(() => pictureBox1.Visible = true));
+            }
+            else
+            {
+                searchBtn.Invoke(new Action(() => searchBtn.Text = "Search"));
+                searchBtn.Invoke(new Action(() => searchBtn.Enabled = true));
+                addBtn.Invoke(new Action(() => addBtn.Enabled = true));
+                this.Invoke(new Action(() => trackedToolStripMenuItem.Enabled = true));
+                pictureBox1.Invoke(new Action(() => pictureBox1.Visible = false));
+            }
+        }
+
+        //User enable options
+        private void textBox1_Click(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.clearURLBox.Equals(true))
+            {
+                textBox1.Text = null;
+            }
+        }
+
+        //Version control
         private void checkForUpdates()
         {
             version = ProductVersion;
@@ -70,134 +170,7 @@ namespace Amazon_s_Best_Prices
             }
         }
 
-        private void addBtn_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            option option = new option();
-            option.SizeGripStyle = SizeGripStyle.Hide;
-            option.ShowDialog();
-            this.Show();
-            resetDisplay();
-        }
-
-        private void viewBtn_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            itemView showCase = new itemView();
-            showCase.Show();
-        }
-
-        public void searchBtn_Click(object sender, EventArgs e)
-        {
-            searchBtn.Text = "Loading..";
-            completed = false;
-            searchBtn.Enabled = false;
-            addBtn.Enabled = false;
-            trackedToolStripMenuItem.Enabled = false;
-            pictureBox1.Visible = true;
-            try
-            {
-                Properties.Settings.Default.tempITEM = "";
-                Properties.Settings.Default.tempPRICE = "";
-                web.Navigate(textBox1.Text);
-                setURL(textBox1.Text);
-                web.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(pageCompleted);
-                completedChecker.Start();
-            }
-            catch
-            {
-               MessageBox.Show("An error has occured, please try again.", "URL error",MessageBoxButtons.OK,MessageBoxIcon.Information);
-            }
-        }
-
-        private void resetDisplay()
-        {
-            label2.Text = "Item name:";
-            label3.Text = "Item price:";
-            textBox1.Text = "";
-        }
-
-        private void checkName()
-        {
-            try
-            {
-                String itemName = web.Document.GetElementById("productTitle").OuterText;
-                if(itemName.Length>= 72)
-                {
-                    String visibleName = itemName.Substring(0, 72);
-                    label2.Text = "Item name: " + visibleName + "...";
-                }
-                else
-                {
-                    label2.Text = "Item name: " + itemName;
-                }
-                Properties.Settings.Default.tempITEM = itemName;  
-            }
-            catch
-            {
-                MessageBox.Show("Sorry, the name of the item was not found.", "Item not found", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                label2.Text = "Item name: Item not found";
-            }
-        }
-
-        private void checkPrice()
-        {
-                try
-                {
-                    itemPrice = web.Document.GetElementById("priceblock_ourprice").OuterText;
-                    Properties.Settings.Default.tempPRICE = itemPrice;
-                }
-                catch
-                {
-                    try
-                    {
-                        if (itemPrice == null)
-                        {
-                        itemPrice = web.Document.GetElementById("priceblock_dealprice").OuterText;
-                        Properties.Settings.Default.tempPRICE = itemPrice;
-                        }
-                    }
-                     catch
-                    {
-                        Properties.Settings.Default.tempPRICE = "";
-                    }
-                }
-                itemPrice = Properties.Settings.Default.tempPRICE;
-            if (Properties.Settings.Default.tempPRICE == "")
-            {
-                MessageBox.Show("Sorry, the price of that item was not found.", "Price not found", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                label3.Text = "Item price: Price not found";
-                addBtn.Enabled = false;
-            }
-            else
-            {
-                label3.Text = "Item price: " + itemPrice;
-                addBtn.Enabled = true;
-                trackedToolStripMenuItem.Enabled = true;
-                Properties.Settings.Default.tempPRICE = itemPrice;
-            }
-        }
-
-        private void completedChecker_Tick(object sender, EventArgs e)
-        {
-            searchBtn.Enabled = false;
-            if (checkCompleted())
-            {
-                completedChecker.Stop();
-                searchBtn.Text = "Search";
-                checkName();
-                checkPrice();
-                searchBtn.Enabled = true;
-                trackedToolStripMenuItem.Enabled = true;
-                pictureBox1.Visible = false;
-            }
-        }
-
-        private void pageCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-            setCompleted();
-        }
-
+        //MenuStrip Actions
         private void trackedToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -221,14 +194,6 @@ namespace Amazon_s_Best_Prices
             about.ShowDialog();
         }
 
-        private void textBox1_Click(object sender, EventArgs e)
-        {
-            if (Properties.Settings.Default.clearURLBox.Equals(true))
-            {
-                textBox1.Text = null;
-            }
-        }
-
         private void updateAvaliableToolStripMenuItem_Click(object sender, EventArgs e)
         {
             updater update = new updater();
@@ -236,9 +201,10 @@ namespace Amazon_s_Best_Prices
             update.ShowDialog();
         }
 
+        //Actions when form closes
         private void main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Properties.Settings.Default.Save();
+            //actions when form closes
         }
 
         //Developer test button

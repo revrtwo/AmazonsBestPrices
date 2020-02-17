@@ -1,13 +1,16 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
+using Trackers;
 namespace Amazon_s_Best_Prices
 {
     public partial class option : Form
     {
-
-        public option()
+        Tracker[] temp = new Tracker[1];
+        public option(Tracker t)
         {
             InitializeComponent();
+            temp[0] = t;
         }
 
         private void option_Load(object sender, EventArgs e)
@@ -19,107 +22,57 @@ namespace Amazon_s_Best_Prices
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            String itemName = itemNameBox.Text;
-            String itemCost = Properties.Settings.Default.tempPRICE;
-            String itemURL = Properties.Settings.Default.tempURL;
-            int avaliableIndex = locateIndex();
-            if (itemName != "")
+            String itemName = "";
+            String itemCost = temp[0].getPrice();
+            String itemURL = temp[0].getURL();
+            if (itemNameBox.Text == "")
             {
-                //Valid name
-                if (!avaliableIndex.Equals(-1))
+                itemName = temp[0].getName();
+            }
+            else
+            {
+                itemName = itemNameBox.Text;
+            }
+            createObject(itemName, itemCost, itemURL);
+        }
+
+        private void createObject(string itemName, string itemCost, string itemURL)
+        {
+            String directory = Properties.Settings.Default.userDirectory;
+            String trackerUID = "[" + Properties.Settings.Default.trackerUID++ + "]";
+            try
+            {
+                if (File.Exists("Trackers.DAT"))
                 {
-                    add(avaliableIndex, itemName, itemCost, itemURL);
-                    this.Close();
+                    File.AppendAllText("Trackers.DAT", "\n" + trackerUID  + itemName + "\n" + trackerUID + itemCost + "\n" + trackerUID  + itemURL);
+                    MessageBox.Show("Tracker saved onto existing list.");
+                
                 }
                 else
                 {
-                    this.Close();
+                    StreamWriter sw = new StreamWriter("Trackers.DAT");
+                    sw.Write(trackerUID + itemName + "\n" + trackerUID  + itemCost + "\n" + trackerUID + itemURL);
+                    sw.Close();
+                    
+                    MessageBox.Show("Tracker file created and tracker saved");
                 }
+                Properties.Settings.Default.Save();
             }
-            else
+            catch (Exception ex)
             {
-                //No name entered
-                MessageBox.Show("A name is required to track this product.","Name required", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                MessageBox.Show(ex.ToString());
             }
+
+            Close();
+
         }
 
-        private int locateIndex()
+        private void button1_Click(object sender, EventArgs e)
         {
-            int identifier = 0;
-            if (Properties.Settings.Default.itemSpot1 == false)
-            {
-                identifier = 1;
-                Properties.Settings.Default.itemSpot1 = true;
-            }
-            else if (Properties.Settings.Default.itemSpot2 == false)
-            {
-                identifier = 2;
-                Properties.Settings.Default.itemSpot2 = true;
-            }
-            else if (Properties.Settings.Default.itemSpot3 == false)
-            {
-                identifier = 3;
-                Properties.Settings.Default.itemSpot3 = true;
-            }
-            else if (Properties.Settings.Default.itemSpot4 == false)
-            {
-                identifier = 4;
-                Properties.Settings.Default.itemSpot4 = true;
-            }
-            else if (Properties.Settings.Default.itemSpot5 == false)
-            {
-                identifier = 5;
-                Properties.Settings.Default.itemSpot5 = true;
-            }
-            else
-            {
-                identifier = -1;
-                MessageBox.Show("All trackers are occupied (limit 5)", "No available trackers", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            return identifier;
+            Properties.Settings.Default.trackerUID = 0;
+            Properties.Settings.Default.Save();
         }
-
-        private void add(int avaliableIndex, String itemName, String itemCost, String itemURL)
-        {
-            switch (avaliableIndex)
-            {
-                case 1:
-                    Properties.Settings.Default.itemSpot1 = true;
-                    Properties.Settings.Default.item1 = itemName;
-                    Properties.Settings.Default.price1 = itemCost;
-                    Properties.Settings.Default.item1URL = itemURL;
-                    break;
-                case 2:
-                    Properties.Settings.Default.itemSpot2 = true;
-                    Properties.Settings.Default.item2 = itemName;
-                    Properties.Settings.Default.price2 = itemCost;
-                    Properties.Settings.Default.item2URL = itemURL;
-                    break;
-                case 3:
-                    Properties.Settings.Default.itemSpot3 = true;
-                    Properties.Settings.Default.item3 = itemName;
-                    Properties.Settings.Default.price3 = itemCost;
-                    Properties.Settings.Default.item3URL = itemURL;
-                    break;
-                case 4:
-                    Properties.Settings.Default.itemSpot4 = true;
-                    Properties.Settings.Default.item4 = itemName;
-                    Properties.Settings.Default.price4 = itemCost;
-                    Properties.Settings.Default.item4URL = itemURL;
-                    break;
-                case 5:
-                    Properties.Settings.Default.itemSpot5 = true;
-                    Properties.Settings.Default.item5 = itemName;
-                    Properties.Settings.Default.price5 = itemCost;
-                    Properties.Settings.Default.item5URL = itemURL;
-                    break;
-            }
-
-        }
-
     }
-
 }
 
 

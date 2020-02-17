@@ -98,7 +98,7 @@ namespace Amazon_s_Best_Prices
             }
             catch
             {
-
+                //disregard
             }
         }
 
@@ -108,6 +108,14 @@ namespace Amazon_s_Best_Prices
             setTimerInterval();
             currentUpdating = -1;
             refreshNames();
+            item1Status.MouseHover += Item1Status_MouseHover;
+
+            listBox1.Items.Add("");
+        }
+
+        private void Item1Status_MouseHover(object sender, EventArgs e)
+        {
+            MessageBox.Show("hehexd");
         }
 
         public void refreshNames()

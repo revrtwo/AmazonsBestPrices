@@ -32,6 +32,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.itemNameBox = new System.Windows.Forms.TextBox();
             this.addButton = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -40,18 +41,20 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Nirmala UI", 8.25F);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(57, 3);
+            this.label1.Location = new System.Drawing.Point(76, 4);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(139, 13);
+            this.label1.Size = new System.Drawing.Size(168, 19);
             this.label1.TabIndex = 0;
             this.label1.Text = "Enter a name for this item";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // itemNameBox
             // 
-            this.itemNameBox.Location = new System.Drawing.Point(12, 22);
+            this.itemNameBox.Location = new System.Drawing.Point(16, 27);
+            this.itemNameBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.itemNameBox.Name = "itemNameBox";
-            this.itemNameBox.Size = new System.Drawing.Size(228, 20);
+            this.itemNameBox.Size = new System.Drawing.Size(303, 22);
             this.itemNameBox.TabIndex = 3;
             this.itemNameBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -60,25 +63,38 @@
             this.addButton.Enabled = false;
             this.addButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addButton.Font = new System.Drawing.Font("Nirmala UI", 8.25F);
-            this.addButton.Location = new System.Drawing.Point(85, 50);
+            this.addButton.Location = new System.Drawing.Point(113, 62);
+            this.addButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(83, 23);
+            this.addButton.Size = new System.Drawing.Size(111, 28);
             this.addButton.TabIndex = 6;
             this.addButton.Text = "Add Item";
             this.addButton.UseVisualStyleBackColor = true;
             this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(26, 73);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "resetUID";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // option
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(252, 78);
+            this.ClientSize = new System.Drawing.Size(336, 96);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.addButton);
             this.Controls.Add(this.itemNameBox);
             this.Controls.Add(this.label1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "option";
@@ -96,5 +112,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox itemNameBox;
         private System.Windows.Forms.Button addButton;
+        private System.Windows.Forms.Button button1;
     }
 }

@@ -28,9 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(main));
-            this.completedChecker = new System.Windows.Forms.Timer(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -49,10 +47,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // completedChecker
-            // 
-            this.completedChecker.Tick += new System.EventHandler(this.completedChecker_Tick);
             // 
             // panel1
             // 
@@ -90,6 +84,8 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(407, 20);
             this.textBox1.TabIndex = 0;
+            this.textBox1.Text = "https://www.amazon.com/gp/product/B07GRV85NP?pf_rd_p=183f5289-9dc0-416f-942e-e8f2" +
+    "13ef368b&pf_rd_r=RJ0DFGT2GCQ1YJ6KV37W";
             this.textBox1.Click += new System.EventHandler(this.textBox1_Click);
             // 
             // addBtn
@@ -251,7 +247,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Timer completedChecker;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
