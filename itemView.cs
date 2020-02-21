@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 
@@ -22,6 +23,8 @@ namespace Amazon_s_Best_Prices
         static WebBrowser web5 = new WebBrowser();
         public int currentUpdating;
         public int devCnt;
+        private List<string> Trackers = new List<string>();
+
         public itemView()
         {
             InitializeComponent();
@@ -107,15 +110,44 @@ namespace Amazon_s_Best_Prices
             supressScriptErrors();
             setTimerInterval();
             currentUpdating = -1;
-            refreshNames();
+            //refreshNames();
             item1Status.MouseHover += Item1Status_MouseHover;
 
-            listBox1.Items.Add("");
+
+            refreshTrackers();
+        }
+
+        private void refreshTrackers()
+        {
+            if (File.Exists("Trackers.DAT"))
+            {
+                StreamReader sr = new StreamReader("Trackers.DAT");
+                string currentLine1;
+                
+                while ((currentLine1 = sr.ReadLine()) != null)
+                {
+                    Trackers.Add(currentLine1);
+                }
+            }
+
+            string id = "";
+            string currentLine2 = "";
+            for (int i=0; i < Trackers.Count; i++){
+                id = getCurrentID(currentLine2 = Trackers[i]);
+                listBox1.Items.Add(Trackers[i]);
+            }
+
+
+        }
+
+        private String getCurrentID(String currentLine2)
+        {
+            return null;
         }
 
         private void Item1Status_MouseHover(object sender, EventArgs e)
         {
-            MessageBox.Show("hehexd");
+            //MessageBox.Show("hehexd");
         }
 
         public void refreshNames()
