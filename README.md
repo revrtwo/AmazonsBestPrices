@@ -1,4 +1,4 @@
-<p><img src="https://raw.githubusercontent.com/rvertwo/AmazonsBestPrices/master/banner.png" alt="" />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Welcome to Amazon's Best Prices, a personal, open source project to keep track of items from the Amazon site.</p>
+<p><img src="https://raw.githubusercontent.com/rvertwo/AmazonsBestPrices/master/banner.png" alt="" />Welcome to Amazon's Best Prices, a personal, open source project to keep track of items from the Amazon site.</p>
 <p><img src="https://raw.githubusercontent.com/rvertwo/AmazonsBestPrices/master/body%20banner.png" alt="" /></p>
 <p><strong>Prerequisite</strong></p>
 <p><a href="https://www.microsoft.com/en-us/download/details.aspx?id=49981">Microsoft .NET Framework 4.6.1</a></p>
